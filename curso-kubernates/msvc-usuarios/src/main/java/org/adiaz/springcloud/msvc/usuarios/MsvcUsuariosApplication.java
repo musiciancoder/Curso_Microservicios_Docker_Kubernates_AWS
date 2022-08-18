@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MsvcUsuariosApplication {
 
+	public MsvcUsuariosApplication() {
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(MsvcUsuariosApplication.class, args);
 	}

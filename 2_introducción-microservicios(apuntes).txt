@@ -1,0 +1,12 @@
+Los microservicios en pocas palabras, son un conjunto de componentes pequeños y autónomos que colaboran entre si.
+
+Cada uno de estos microservicios pueden estar escritos en diferentes versiones y en distintos de lenguajes de programación (Java, Node, etc), ya que se comunican entre ellos
+mediante apiREST con protocolo http. Cada microservicio prescinde de ip, puerto y url para conectarse entre sí con otros microservicios, puesto que solo se hace referencia al hostname de cada microservicio.
+Cada entorno de desarrollo (testing, produccion, etc) debe estar con sus configuraciones centralizadas para que se pueda trabajar en ellos al desplegar los distintos microservicios.
+El API Gateway se encarga de dar routing al microservicio.
+
+
+
+
+
+
