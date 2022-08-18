@@ -1,2 +1,7 @@
 1) Crear proyecto modular, es decir con proyecto hijo y proyecto padre
-2) Configurar el contexto de persistencia.
+2) Configurar el contexto de persistencia
+*Configuró application.properties
+*Creo clase entity (pojo) Usuario
+3)Crear patrón DAO ("Implementando el componente service")
+*Creó Interfaz UsuarioService
+*Creó clase UsuarioServiceImpl que implementa interfaz anterior
