@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="usuarios") //opcional, si no se pone la tabla toma el nombre de la clase automaticamente
-public class MsvcUsuariosApplication {
+public class Usuario {
 
     @Id //llave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincremental
     private Long id;
     private String nombre;
 
-    @Column(unique = true)
+    @Column(unique = true) //funciona solo para el caso que nosotros creamos la tabla al correr la aplicacion, pero no cuando esta creada de antemano en la bbdd
     private String email;
 
     private String password;
@@ -23,7 +23,6 @@ public class MsvcUsuariosApplication {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getNombre() {
         return nombre;
     }
