@@ -4,17 +4,15 @@ package org.adiaz.springcloud.msvc.usuarios.controllers;
 import org.adiaz.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.adiaz.springcloud.msvc.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-// @RequestMapping ("/api")
+// @RequestMapping ("/api") //esto es opcional en la url
 public class UsuarioController {
 
     @Autowired
@@ -31,10 +29,34 @@ public class UsuarioController {
         if(usuarioOptional.isPresent()){
             return ResponseEntity.ok(usuarioOptional.get()); //ok es metodo estático, por eso no ocupa new ResponseEntity
         }
-        //return null;
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping
+    public ResponseEntity <?> crear (@RequestBody Usuario usuario){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editar (@RequestBody Usuario usuario, @PathVariable Long id){
+        Optional <Usuario> o = service.porId(id);
+        if(o.isPresent()){
+            Usuario usuarioDB = o.get();
+            usuarioDB.setNombre(usuario.getNombre());
+            usuarioDB.setEmail(usuario.getPassword());
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuarioDB));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar (@PathVariable Long id) {
+        Optional <Usuario> o = service.porId(id);
+        if (o.isPresent()){
+            service.eliminar(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
