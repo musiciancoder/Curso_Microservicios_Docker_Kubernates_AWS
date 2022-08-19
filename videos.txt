@@ -1,12 +1,14 @@
-1) Crear proyecto modular, es decir con proyecto hijo y proyecto padre
-2) Configurar el contexto de persistencia
+1) Crear proyecto modular, es decir con proyecto hijo (msvc-usuarios) y proyecto padre (curso-kubernates)
+2) Configurar el contexto de persistencia en el hijo
 *Configuró application.properties
 *Creo clase entity (pojo) Usuario
-3)Crear patrón DAO ("Implementando el componente service")
+3)Crear patrón DAO segun arquitectura spring ("Implementando el componente service") (siempre en el hijo, por ahora nunca en el padre)
 *Creó Interfaz UsuarioService
 *Creó clase UsuarioServiceImpl que implementa interfaz anterior
-4)Crear el controlador inyectando el servicio ("Implementando el controlador RestController")
+*Creó el controlador inyectando el servicio ("Implementando el controlador RestController")
 *Creó UsuarioController
-5)Implementar metodos handler GET, POST PUT y DELETE
-6)Configurar aplication.properties con bbdd mysql("Configurando en el application.properties conexión MySQL")
-7) Correr la aplicacion, verificar que se hayan creado las tablas en la BBDD de mysql (previamente crear la bbdd manualmente en phpmyadmin sin tablas) y probar en postman 
+*Implementó metodos handler GET, POST PUT y DELETE
+4)Configurar aplication.properties con bbdd mysql("Configurando en el application.properties conexión MySQL")
+5) Correr la aplicacion, verificar que se hayan creado las tablas en la BBDD de mysql (previamente crear la bbdd manualmente en phpmyadmin sin tablas) y probar en postman
+6) Crear segundo proyecto hijo (msvc-cursos) 
+*Configuró application.properties

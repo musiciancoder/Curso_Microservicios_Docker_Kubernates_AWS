@@ -18,6 +18,7 @@
 <!--    con esto seteamos el proyecto hijo-->
     <modules>
        <module>msvc-usuarios</module>
+        <module>msvc-cursos</module>
     </modules>
 
 
