@@ -1,2 +1,0 @@
-Crear clase entidad (usuario)
-

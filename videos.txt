@@ -8,3 +8,4 @@
 4)Crear el controlador inyectando el servicio ("Implementando el controlador RestController")
 *Creó UsuarioController
 5)Implementar metodos handler GET, POST PUT y DELETE
+6)Configurar aplication.properties con bbdd mysql("Configurando en el application.properties conexión MySQL")
