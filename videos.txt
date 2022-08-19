@@ -12,3 +12,6 @@
 5) Correr la aplicacion, verificar que se hayan creado las tablas en la BBDD de mysql (previamente crear la bbdd manualmente en phpmyadmin sin tablas) y probar en postman
 6) Crear segundo proyecto hijo (msvc-cursos) 
 *Configuró application.properties
+*Creo clase entity (pojo) Usuario
+3)Crear patrón DAO segun arquitectura spring  (ahora en el segundo hijo, por ahora nunca en el padre)
+*Creó Interfaz CursoService
