@@ -1,7 +1,7 @@
 package org.adiaz.springcloud.msvc.cursos.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -12,7 +12,7 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     private String nombre;
 
     public Long getId() {

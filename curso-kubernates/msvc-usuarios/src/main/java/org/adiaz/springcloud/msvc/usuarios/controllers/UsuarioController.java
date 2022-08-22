@@ -76,10 +76,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class UsuarioController {
@@ -103,6 +100,12 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario, BindingResult result) {
+        if (service.porEmail(usuario.getEmail()).isPresent()){ //verificar si hay un usuario con ese email
+            return ResponseEntity.badRequest()
+                    .body(Collections
+                            .singletonMap("mensaje","Ya existe un usuario con ese email!"));
+        }
+
         if (result.hasErrors()){
             return validar(result);
         }
@@ -111,6 +114,11 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
+        if (service.porEmail(usuario.getEmail()).isPresent()){ //verificar si hay un usuario con ese email
+            return ResponseEntity.badRequest()
+                    .body(Collections
+                            .singletonMap("mensaje","Ya existe un uuari con ese email!"));
+        }
         if (result.hasErrors()){
             return validar(result);
         }
