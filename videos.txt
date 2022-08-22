@@ -13,5 +13,9 @@
 6) Crear segundo proyecto hijo (msvc-cursos) 
 *Configuró application.properties
 *Creo clase entity (pojo) Usuario
-3)Crear patrón DAO segun arquitectura spring  (ahora en el segundo hijo, por ahora nunca en el padre)
+7)Crear patrón DAO segun arquitectura spring  (ahora en el segundo hijo, por ahora nunca en el padre)
 *Creó Interfaz CursoService
+*Creó clase servicio CursoServiceImpl
+*Creó controlador
+8)Configurar aplication.properties con bbdd postgress
+
