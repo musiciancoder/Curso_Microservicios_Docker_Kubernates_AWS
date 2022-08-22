@@ -72,9 +72,13 @@ import org.adiaz.springcloud.msvc.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -98,12 +102,18 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crear(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario, BindingResult result) {
+        if (result.hasErrors()){
+            return validar(result);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@RequestBody Usuario usuario, @PathVariable Long id) {
+    public ResponseEntity<?> editar(@RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
+        if (result.hasErrors()){
+            return validar(result);
+        }
         Optional<Usuario> o = service.porId(id);
         if (o.isPresent()) {
             Usuario usuarioDb = o.get();
@@ -123,6 +133,16 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    //metodo utilitario que podría ir en paquete utils
+    private ResponseEntity<Map<String,String>> validar (BindingResult result){
+        Map<String,String>errores = new HashMap<>();
+        result.getFieldErrors(). //es una lista con los campos en donde hay errores
+                forEach(fieldError -> {
+                    errores.put(fieldError.getField(), "El campo " + fieldError.getField() + " " + fieldError.getDefaultMessage() );
+                });
+        return ResponseEntity.badRequest().body(errores);
     }
 }
 

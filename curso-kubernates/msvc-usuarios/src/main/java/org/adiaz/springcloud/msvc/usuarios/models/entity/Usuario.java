@@ -54,6 +54,8 @@ public class Usuario {
 package org.adiaz.springcloud.msvc.usuarios.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="usuarios")
@@ -63,11 +65,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty //solo para strings, para los demas tipos se ocupa @NotNull
     private String nombre;
 
     @Column(unique = true)
+    @Email
+    @NotEmpty
     private String email;
 
+    @NotEmpty
     private String password;
 
     public Long getId() {

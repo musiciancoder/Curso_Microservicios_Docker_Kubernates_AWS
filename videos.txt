@@ -19,4 +19,5 @@
 *Creó controlador
 8)Configurar aplication.properties con bbdd postgress
 9)Crear la bbdd en postgres y probar con postman
+10)Validar los campos que se probaron en postman con @NotBlank en la entidad y con @Value y Binding result en el controlador
 
