@@ -100,27 +100,26 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario, BindingResult result) {
-        if (service.porEmail(usuario.getEmail()).isPresent()){ //verificar si hay un usuario con ese email
+        if (result.hasErrors()){
+            return validar(result); //profe dijo: "con esto el !usuario.getEmail().isEmpty() de las lineas de mas abajo no seria necesario, pero esa parte la voy a dejar igual"
+        }
+        if (!usuario.getEmail().isEmpty() && service.porEmail(usuario.getEmail()).isPresent()){ //verificar si hay un usuario con ese email
             return ResponseEntity.badRequest()
                     .body(Collections
                             .singletonMap("mensaje","Ya existe un usuario con ese email!"));
-        }
-
-        if (result.hasErrors()){
-            return validar(result);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
-        if (service.porEmail(usuario.getEmail()).isPresent()){ //verificar si hay un usuario con ese email
-            return ResponseEntity.badRequest()
-                    .body(Collections
-                            .singletonMap("mensaje","Ya existe un uuari con ese email!"));
-        }
         if (result.hasErrors()){
             return validar(result);
+        }
+        if (!usuario.getEmail().isEmpty() && service.porEmail(usuario.getEmail()).isPresent()){ //verificar si hay un usuario con ese email
+            return ResponseEntity.badRequest()
+                    .body(Collections
+                            .singletonMap("mensaje","Ya existe un usuario con ese email!"));
         }
         Optional<Usuario> o = service.porId(id);
         if (o.isPresent()) {
