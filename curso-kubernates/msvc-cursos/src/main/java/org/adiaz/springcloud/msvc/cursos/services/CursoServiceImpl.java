@@ -1,5 +1,6 @@
 package org.adiaz.springcloud.msvc.cursos.services;
 
+import org.adiaz.springcloud.msvc.cursos.clients.UsuarioClientRest;
 import org.adiaz.springcloud.msvc.cursos.models.Usuario;
 import org.adiaz.springcloud.msvc.cursos.models.entity.Curso;
 import org.adiaz.springcloud.msvc.cursos.repositories.CursoRepository;
@@ -15,6 +16,9 @@ public class CursoServiceImpl implements CursoService{
 
     @Autowired
     private CursoRepository repository;
+
+    @Autowired
+    private UsuarioClientRest cliente; //iny por dep. del cliente http
 
     @Override
     @Transactional(readOnly = true)

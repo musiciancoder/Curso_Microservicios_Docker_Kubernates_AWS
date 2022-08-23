@@ -1,6 +1,6 @@
 package org.adiaz.springcloud.msvc.cursos.models;
 
-public class Usuario { //NO es una clase entity (no esta en la bbdd de cursos)
+public class Usuario { //NO es una clase entity (no esta en la bbdd de cursos). //todo ¿es un dto?
 
     private Long id;
 

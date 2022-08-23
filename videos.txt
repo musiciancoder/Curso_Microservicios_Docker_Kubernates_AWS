@@ -22,5 +22,11 @@
 10)Validar los campos que se probaron en postman con @NotBlank en la entidad y con @Value y Binding result en el controlador
 11)Validar que el email de un usuario nuevo no exista en la bbdd
 12)Conectar los microservicios
-*Creó la clase CursoUsuarios para unir ambos servicios por usuarioId
+*Creó la clase CursoUsuario para unir ambos servicios por usuarioId y para que se generara esta tabla en la bbdd
+*Creó la clase Usuario, que no es una entidad, sino que sirve de clase para cuando recibimos json de usuario desde el otro servicio
+*Modificó la clase curso, para que contuviera una llave foránea "curso_id". Además creó los métodos que agregan y eliminan usuarios del curso
+*Modificó la interfaz de servicio CursoService para que tuvieran los metodos para asignar o desasignar usuarios a los cursos
+*Creó el cliente http con feign UsuarioClientRest y declaró los métodos del controlador del otro servicio
+*En la clase de servicio CursoServiceImpl sobrescribió los métodos de la interfaz de servicio ocupando los métodos declarados en UsuarioClientRest dentro de ellos
+
 
