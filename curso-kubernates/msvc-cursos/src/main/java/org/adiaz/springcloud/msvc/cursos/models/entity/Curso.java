@@ -20,7 +20,7 @@ public class Curso {
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //cascade= si se elimina un curso se elimina la lista de usuarios inscritos en él
-    @JoinColumn(name = "curso_id") //con esto se crea la llave foránea curso_id en la tabla cursos_usuarios
+    @JoinColumn(name = "curso_id") //con esto se crea la llave foránea "curso_id" en la tabla cursos_usuarios. OJO, que llave foránea es una llave de otra tabla, NO de otro servicio, por lo que acá esta bien hecho
     private List<CursoUsuario> cursoUsuarios = new ArrayList<>(); //lista de usuarios inscritos en el curso
 
     @Transient //con esto decimos q no es una entidad
