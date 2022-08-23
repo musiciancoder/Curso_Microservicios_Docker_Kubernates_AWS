@@ -1,5 +1,6 @@
 package org.adiaz.springcloud.msvc.cursos.services;
 
+import org.adiaz.springcloud.msvc.cursos.models.Usuario;
 import org.adiaz.springcloud.msvc.cursos.models.entity.Curso;
 import org.adiaz.springcloud.msvc.cursos.repositories.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,20 @@ public class CursoServiceImpl implements CursoService{
     @Transactional
     public void eliminar(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty(); //TODO modificar metodo en la siguientes lecciones
+    }
+
+    @Override
+    public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty(); //TODO modificar metodo en la siguientes lecciones
+    }
+
+    @Override
+    public Optional<Usuario> eliminarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty(); //TODO modificar metodo en la siguientes lecciones
     }
 }
