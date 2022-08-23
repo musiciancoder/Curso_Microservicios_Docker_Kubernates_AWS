@@ -1,4 +1,4 @@
-package org.adiaz.springcloud.msvc.cursos.entity;
+package org.adiaz.springcloud.msvc.cursos.models.entity;
 
 import javax.persistence.*;
 

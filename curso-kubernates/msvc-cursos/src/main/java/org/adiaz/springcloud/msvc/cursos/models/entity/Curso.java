@@ -1,4 +1,6 @@
-package org.adiaz.springcloud.msvc.cursos.entity;
+package org.adiaz.springcloud.msvc.cursos.models.entity;
+
+import org.adiaz.springcloud.msvc.cursos.models.Usuario;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,10 +20,15 @@ public class Curso {
     private String nombre;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //cascade= si se elimina un curso se elimina la lista de usuarios inscritos en él
+    @JoinColumn(name = "curso_id") //con esto se crea la llave foránea curso_id en la tabla cursos_usuarios
     private List<CursoUsuario> cursoUsuarios = new ArrayList<>(); //lista de usuarios inscritos en el curso
+
+    @Transient //con esto decimos q no es una entidad
+    private List<Usuario> usuarios;
 
     public Curso() {
         cursoUsuarios = new ArrayList<>();
+        usuarios=new ArrayList<>();
     }
 
 
@@ -55,5 +62,13 @@ public class Curso {
 
     public void setCursoUsuarios(List<CursoUsuario> cursoUsuarios) {
         this.cursoUsuarios = cursoUsuarios;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }

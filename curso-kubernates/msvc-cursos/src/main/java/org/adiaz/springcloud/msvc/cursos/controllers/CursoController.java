@@ -1,6 +1,6 @@
 package org.adiaz.springcloud.msvc.cursos.controllers;
 
-import org.adiaz.springcloud.msvc.cursos.entity.Curso;
+import org.adiaz.springcloud.msvc.cursos.models.entity.Curso;
 import org.adiaz.springcloud.msvc.cursos.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
