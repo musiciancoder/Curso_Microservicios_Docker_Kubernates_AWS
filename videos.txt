@@ -22,6 +22,7 @@
 10)Validar los campos que se probaron en postman con @NotBlank en la entidad y con @Value y Binding result en el controlador
 11)Validar que el email de un usuario nuevo no exista en la bbdd
 12)Conectar los microservicios
+12.a)Modificando informacion desde msvc-curso y enviandola a msvc-usuario
 *Creó la clase CursoUsuario para unir ambos servicios por usuarioId y para que se generara esta tabla en la bbdd
 *Creó la clase Usuario, que no es una entidad, sino que sirve de clase para cuando recibimos json de usuario desde el otro servicio
 *Modificó la clase curso, para que contuviera una llave foránea "curso_id". Además creó los métodos que agregan y eliminan usuarios del curso
@@ -32,5 +33,9 @@
 *Hizo correr ambos servicios y probó en postman
 *Solo en msvc-usuario creó toda la lógica de negocios (en UsuarioService, UsuarioServiceImpl y UsuarioController) para obtener el detalle de varios usuarios simultaneamente mediante los ids de usuarios (request "usuarios por curso en el postman") y probó en postman
 *En el cliente rest de msvc-curso creó el método en concordancia con el controlador de msvc-usuario, implementó el método en el servicio CursoServiceImpl y lo ocupó en el get del controlador CursoController. Probó en Postman.
-
+12.a)Modificando informacion desde msvc-usuario y enviandola a msvc-curso
+*A diferencia de 12.a en que necesitaba leer información de usuarios contenidos en los cursos, acá no necesitó eso. Por esta razón no necesitó crear clases similares a CursoUsuario o Usuario que sí creó en msvc-cursos.
+*En vez de eso loque necesita es borrar un usuario asignado a un curso de msvc-curso al ser eliminado el usuario de msvc-usuario.Para ello hizo lo siguiente:
+*Creó un cliente en msvc-usuario llamado CursoClienteRest.
+*Lo ocupó en el servicio UsuarioServiceImpl dentro del método eliminar. Probó en postman.
 

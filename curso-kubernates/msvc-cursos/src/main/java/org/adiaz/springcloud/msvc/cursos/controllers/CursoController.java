@@ -128,4 +128,11 @@ public class CursoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    //Des-asignar un alumno del curso al ser eliminado en el Msvc usuarios
+    @DeleteMapping("/eliminar-curso-usuario/{id}") // (ojo, que nunca lo probó en Postman, solo probó haciendo un delete de un usuario y verificando que se hubiera eliminado del curso en el que estaba
+    public ResponseEntity<?> eliminarCursoUsuarioPorId(@PathVariable Long id){
+        service.eliminarCursoUsuarioPorId(id);
+        return  ResponseEntity.noContent().build();
+    }
 }

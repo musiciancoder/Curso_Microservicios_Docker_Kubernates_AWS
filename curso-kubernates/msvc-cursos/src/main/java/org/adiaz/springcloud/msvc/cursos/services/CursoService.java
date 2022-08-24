@@ -13,6 +13,8 @@ public interface CursoService {
     Curso guardar(Curso usuario);
     void eliminar(Long id);
 
+    void eliminarCursoUsuarioPorId(Long id);
+
     //métodos que dependen de un Usuario usuario del microservicio msvc-usuarios
     Optional<Usuario>asignarUsuario(Usuario usuario, Long cursoId); //asignar usuario q ya existe en la bbdd de  msvc-usuarios
     Optional<Usuario>crearUsuario(Usuario usuario, Long cursoId);//crear usuario q ya existe en la bbdd de  msvc-usuarios

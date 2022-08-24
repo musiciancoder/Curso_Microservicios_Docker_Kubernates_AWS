@@ -3,7 +3,9 @@ package org.adiaz.springcloud.msvc.usuarios;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@EnableFeignClients //esta anotacion permite conectar microservicios mediante cliente feign
 @SpringBootApplication
 public class MsvcUsuariosApplication {
 

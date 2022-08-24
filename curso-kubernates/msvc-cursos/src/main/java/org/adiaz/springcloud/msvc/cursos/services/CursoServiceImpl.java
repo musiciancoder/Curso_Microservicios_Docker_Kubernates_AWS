@@ -66,6 +66,12 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     @Transactional
+    public void eliminarCursoUsuarioPorId(Long id) {
+        repository.eliminarCursoUsuarioPorId(id);
+    }
+
+    @Override
+    @Transactional
     public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) { //ya existe en la bbdd de msvc-usuario
         Optional<Curso> o = repository.findById(cursoId);//encuentra el curso si existe
         if (o.isPresent()) {

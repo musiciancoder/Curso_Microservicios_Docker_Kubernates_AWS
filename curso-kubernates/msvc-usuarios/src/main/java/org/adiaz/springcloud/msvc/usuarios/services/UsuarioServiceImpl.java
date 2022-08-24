@@ -45,6 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService { //Clase DAO que impl
 
 package org.adiaz.springcloud.msvc.usuarios.services;
 
+import org.adiaz.springcloud.msvc.usuarios.clients.CursoClienteRest;
 import org.adiaz.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.adiaz.springcloud.msvc.usuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
+    private CursoClienteRest client;
 
     @Override
     @Transactional(readOnly = true)
@@ -82,7 +86,8 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     @Transactional
     public void eliminar(Long id) {
-        repository.deleteById(id);
+        repository.deleteById(id); //eliminar usuario de la bbd  msvc-usuario
+        client.eliminarCursoUsuarioPorId(id); //eliminar usuario q esta asignado a un curso en msvc-curso al eliminar ese usuario en msvc-usuario
     }
 
     @Override
