@@ -30,5 +30,6 @@
 *En la clase de servicio CursoServiceImpl sobrescribió los métodos de la interfaz de servicio ocupando los métodos declarados en UsuarioClientRest dentro de ellos
 *En el controlador CursoController inyectó el servicio y ocupó los métodos de este en cada llamada para asignar, crear y eliminar usuario del curso.
 *Hizo correr ambos servicios y probó en postman
+*Creó toda la lógica de negocios (en UsuarioService, UsuarioServiceImpl y UsuarioController) para obtener el detalle de varios usuarios simultaneamente mediante los ids de usuarios (request "usuarios por curso en el postman") y probó en postman
 
 

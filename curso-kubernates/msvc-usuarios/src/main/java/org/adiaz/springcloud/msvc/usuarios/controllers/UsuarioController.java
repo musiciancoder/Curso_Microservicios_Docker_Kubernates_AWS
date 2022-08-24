@@ -142,6 +142,12 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
+    //para obtener el detalle de varios usuarios simultaneamente mediante los ids de usuarios (request "usuarios por curso en el postman")
+    @GetMapping("/usuarios-por-curso")
+    public ResponseEntity<?>obtenerAlumnosPorCurso(@RequestParam List <Long>ids){
+        return ResponseEntity.ok(service.listarPorIds(ids));
+    }
+
     //metodo utilitario que podría ir en paquete utils
     private ResponseEntity<Map<String,String>> validar (BindingResult result){
         Map<String,String>errores = new HashMap<>();
@@ -151,5 +157,8 @@ public class UsuarioController {
                 });
         return ResponseEntity.badRequest().body(errores);
     }
+
+
+
 }
 

@@ -85,6 +85,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
+    public List<Usuario> listarPorIds(Iterable<Long> ids) {
+        return (List<Usuario>) repository.findAllById(ids); //list hereda de iterable, por lo que iterable debe pasarse a lista (downcasting)
+    }
+
+    @Override
     public Optional<Usuario> porEmail(String email) {
         // return repository.findByEmail(email);
         return repository.porEmail(email);
