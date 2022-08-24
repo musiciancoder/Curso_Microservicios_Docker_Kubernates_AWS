@@ -72,6 +72,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         return repository.findById(id);
     }
 
+
     @Override
     @Transactional
     public Usuario guardar(Usuario usuario) {

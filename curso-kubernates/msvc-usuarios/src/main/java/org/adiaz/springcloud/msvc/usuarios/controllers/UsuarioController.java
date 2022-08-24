@@ -142,7 +142,7 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    //para obtener el detalle de varios usuarios simultaneamente mediante los ids de usuarios (request "usuarios por curso en el postman")
+    //para obtener el detalle de varios usuarios simultaneamente (no todos!) mediante los ids de usuarios (request "usuarios por curso en el postman")
     @GetMapping("/usuarios-por-curso")
     public ResponseEntity<?>obtenerAlumnosPorCurso(@RequestParam List <Long>ids){
         return ResponseEntity.ok(service.listarPorIds(ids));

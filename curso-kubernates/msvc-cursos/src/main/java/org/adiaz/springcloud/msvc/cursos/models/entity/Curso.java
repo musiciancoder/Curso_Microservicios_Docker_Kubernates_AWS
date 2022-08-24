@@ -27,8 +27,8 @@ public class Curso {
     private List<Usuario> usuarios;
 
     public Curso() {
-        cursoUsuarios = new ArrayList<>();
-        usuarios=new ArrayList<>();
+        cursoUsuarios = new ArrayList<>(); //es un entity, de tabla
+        usuarios=new ArrayList<>(); //los obriene por dto en el request
     }
 
 

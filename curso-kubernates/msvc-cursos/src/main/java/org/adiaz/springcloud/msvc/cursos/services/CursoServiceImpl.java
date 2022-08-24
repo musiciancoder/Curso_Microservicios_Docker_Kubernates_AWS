@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class CursoServiceImpl implements CursoService{
+public class CursoServiceImpl implements CursoService {
 
     @Autowired
     private CursoRepository repository;
@@ -34,6 +35,24 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
+    public Optional<Curso> porIdConUsuarios(Long id) { //id es id del curso
+        Optional<Curso> o = repository.findById(id);
+        if (o.isPresent()) {
+            Curso curso = o.get();
+            if (!curso.getCursoUsuarios().isEmpty()) { //si la lista de usuarios de ese curso no esta vacia
+                List<Long> ids = curso.getCursoUsuarios() // lista de usuarios de ese curso
+                        .stream()
+                        .map(cu -> cu.getUsuarioId()) //pasa de cursoUsuario a idUsuario
+                        .collect(Collectors.toList());// obtenemos una lista de usuarioId del curso a partir del id del curso
+                List<Usuario> usuarios = client.obtenerAlumnosPorCurso(ids); //obtiene finalmente los usuarios completos a partir de sus ids
+                curso.setUsuarios(usuarios);
+            }
+            return Optional.of(curso);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     @Transactional
     public Curso guardar(Curso curso) {
         return repository.save(curso);
@@ -49,14 +68,14 @@ public class CursoServiceImpl implements CursoService{
     @Transactional
     public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) { //ya existe en la bbdd de msvc-usuario
         Optional<Curso> o = repository.findById(cursoId);//encuentra el curso si existe
-        if(o.isPresent()){
+        if (o.isPresent()) {
             Usuario usuarioMsvc = client.detalle(usuario.getId());
             Curso curso = o.get();
             CursoUsuario cursoUsuario = new CursoUsuario(); //se debe crear un CursoUsuario porque lo q se guarda en esta bbdd es un CursoUsuario, no un Usuario tipo dto
-        cursoUsuario.setUsuarioId(usuarioMsvc.getId());
-        curso.addCursoUsuario(cursoUsuario);
-        repository.save(curso);
-        return Optional.of(usuarioMsvc);
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
+            curso.addCursoUsuario(cursoUsuario);
+            repository.save(curso);
+            return Optional.of(usuarioMsvc);
         }
         return Optional.empty();
     }
@@ -65,7 +84,7 @@ public class CursoServiceImpl implements CursoService{
     @Transactional
     public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) { //no existe en la bbdd de msvc-usuario
         Optional<Curso> o = repository.findById(cursoId);//encuentra el curso si existe
-        if(o.isPresent()){
+        if (o.isPresent()) {
             Usuario usuarioNuevoMsvc = client.crear(usuario); //crea un usuario q no existe en la bbdd de msvc-usuario
             Curso curso = o.get();
             CursoUsuario cursoUsuario = new CursoUsuario();
@@ -81,7 +100,7 @@ public class CursoServiceImpl implements CursoService{
     @Transactional
     public Optional<Usuario> eliminarUsuario(Usuario usuario, Long cursoId) {
         Optional<Curso> o = repository.findById(cursoId);//encuentra el curso si existe
-        if(o.isPresent()){
+        if (o.isPresent()) {
             Usuario usuarioMsvc = client.detalle(usuario.getId());
             Curso curso = o.get();
             CursoUsuario cursoUsuario = new CursoUsuario();
