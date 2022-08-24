@@ -28,5 +28,7 @@
 *Modificó la interfaz de servicio CursoService para que tuvieran los metodos para asignar o desasignar usuarios a los cursos
 *Creó el cliente http con feign UsuarioClientRest y declaró los métodos del controlador del otro servicio
 *En la clase de servicio CursoServiceImpl sobrescribió los métodos de la interfaz de servicio ocupando los métodos declarados en UsuarioClientRest dentro de ellos
+*En el controlador CursoController inyectó el servicio y ocupó los métodos de este en cada llamada para asignar, crear y eliminar usuario del curso.
+*Hizo correr ambos servicios y probó en postman
 
 
