@@ -6,9 +6,15 @@ WORKDIR /app/msvc-usuarios
 #COPY ./target/msvc-usuarios-0.0.1-SNAPSHOT.jar .
 #copiar pom del proyecto padre en app
 COPY ./pom.xml /app
-#copiar el proyecto usuarios en /app/msvc-usuarios
-COPY ./msvc-usuarios .
-#generar jar al crear la imagen, para que no lo tengamos q hacer nosotros con linea de comandos
+#copiar desde carpet .mvn desde ruta ./msvc-usuarios/.mvn en local a ruta /app/msvc-usuarios/.mvn en la imagen
+COPY ./msvc-usuarios/.mvn ./.mvn
+COPY ./msvc-usuarios/mvnw .
+COPY ./msvc-usuarios/pom.xml .
+#Crear el jar. Descargar librerias desde internet (Nexus por ejemplo) solo la primera vez, despues descargarlas desde el caché. No correr nunca el código (la idea es que esta instruccion vea exclusivamente dependencias)
+RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target/
+#esta instrucción si se ocupa de copiar el código desde local a /app/msvc-usuarios/src en la imagen si hacemos algun cambio en el código fuente
+COPY ./msvc-usuarios/src ./src
+#crear el jar
 RUN ./mvnw clean package -DskipTests
 #exponer puerto
 EXPOSE 8001
