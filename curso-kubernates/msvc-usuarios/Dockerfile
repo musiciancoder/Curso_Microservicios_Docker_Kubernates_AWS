@@ -1,5 +1,7 @@
+#acá con este archivo dockerfile se estan construyendo una imagen con dos stages (etapas).La primera con el código y las librerías obtenidas desde el repositorio local de maveny la segunda (basada en la primera) que sólo contiene el jar y por lo mismo es mucho mas liviana. Con esto al igual que en el video anterior optimizamos los tiempos de ejecución de docker, pero ocupando el concepto de stages
 #el jdk desde donde se ejecutó localmente en forma exitosa el jar
-FROM openjdk:8-jdk-alpine
+#con "as builder" le damos un nombre al stage
+FROM openjdk:8-jdk-alpine as builder
 #nombre de la carpeta adonde se va a ejecutar la imagen en elcontainer
 WORKDIR /app/msvc-usuarios
 # copiar desde ./target/msvc-usuarios-0.0.1-SNAPSHOT.jar a /app (el punto es /app)
@@ -16,8 +18,13 @@ RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repac
 COPY ./msvc-usuarios/src ./src
 #crear el jar
 RUN ./mvnw clean package -DskipTests
+#cada vez que hay un FROM es un stage aparte.
+FROM openjdk:8-jdk-alpine
+WORKDIR /app
+#acá se ocupa el stage anterior para copiar el jar desde /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar en el directorio del jar anterior hacia el directorio /app en el nuevo stage
+COPY --from=builder /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar .
 #exponer puerto
 EXPOSE 8001
 #cada vez que ejecutamos un contenedor automaticamente se dirige a ejecutar el comando que está dentro delpunto de entrada. En este caso va a ejecutar el jar.
-#ojo con el target, ya q si lo hemos generado nosotros con comando mvn package en entrypoint solo debe ir ./msvc-usuarios-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","./target/msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+#ojo con el target, ya q si lo hemos generado nosotros con comando mvn package en entrypoint solo debe ir ./msvc-usuarios-0.0.1-SNAPSHOT.jar . El punto en este caso hace referencia al directorio donde estamos en la linea de comandos
+ENTRYPOINT ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
