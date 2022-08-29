@@ -22,9 +22,14 @@ RUN ./mvnw clean package -DskipTests
 FROM openjdk:8-jdk-alpine
 WORKDIR /app
 #acá se ocupa el stage anterior para copiar el jar desde /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar en el directorio del jar anterior hacia el directorio /app en el nuevo stage
+#para que guarde los logs en ./logs
+RUN mkdir ./logs
 COPY --from=builder /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar .
 #exponer puerto
-EXPOSE 8001
+EXPOSE 8001-8091
 #cada vez que ejecutamos un contenedor automaticamente se dirige a ejecutar el comando que está dentro delpunto de entrada. En este caso va a ejecutar el jar.
 #ojo con el target, ya q si lo hemos generado nosotros con comando mvn package en entrypoint solo debe ir ./msvc-usuarios-0.0.1-SNAPSHOT.jar . El punto en este caso hace referencia al directorio donde estamos en la linea de comandos
-ENTRYPOINT ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+#el ENTRYPOINT no permite modificar la linea de domandos en modo interactivo. CMD sí lo permite, Puede ser remplazado en los comandos por docker run -p 8001:80
+#el modo interactivo permite trabajar dentro de docker como si fuera un terminal normal de linux
+CMD ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
