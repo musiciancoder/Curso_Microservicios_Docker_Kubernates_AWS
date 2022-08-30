@@ -1,0 +1,44 @@
+*QUE ES DOCKER
+Docker es un administrador de contenedores. 
+Un contenedor es una caja de herramienta asilada con un porción de un sistema operativo para ejecutar aplicaciones en nuestra maquina host.
+Es un empaquetado del código y dependencias para ejecutar que ese código, la aplicación (ejemplo aplicación con Spring + JDK runtime).
+Un mismo contenedor que se ejecuta siempre debe reproducir exactamente el mismo comportamiento de la aplicación, sin importar dónde o quién lo ejecuta
+
+*IMAGENES VS CONTENEDORES
+La imagen es una plantilla que contiene el código y ambiente necesario(runtime, herramientas, librerias). Los contenedores son instancias de esta plantilla que ejecutan la aplicacion y el
+ambiente necesario para su ejecución
+
+*DOCKERFILE
+Podemos descargarnos imagenes desde hub.docker.com que ya estan listas para java, mysql, etc. La versión de la imagen se busca en tag o en el buscador.
+Además podemos configurar nuestras propias imagenes, con un archivo de configuración llamado Dockerfile. Este archivo debemos generarlo al mismo nivel del pom en los directorios.
+
+Para generar imagenes debemos tener nuestro jar generado, pero antes de generarlo notar que hay que hacer un cambio en el application properties, para que
+se apunte a la bbdd local desde el container (spring.datasource.url=jdbc:mysql://host.docker.internal:3306/msvc_usuarios) 
+
+Se genera la imagen (docker build -t nombreImagenACrear.) y luego se ejecuta el container mediante la id de la imagen generada (docker run -p 8000:8001 idImagen). Se puede incluso probar en postman (recordar q se prueba siempre en postman con puerto externo, o sea 8000 en este caso). No se necesita estar conectado a la bbdd para la imagen, pero sí para el contenedor.
+
+Si se desea acceder desde otro servicio (msvc_usuarios), en el cliente rest del otro servicio se debe cambiar la url a tambien a @FeignClient(name="msvc-cursos", url="host.docker.internal:8002")
+
+Cada linea del dockerfile corresponde a una capa de la imagen. Las capas permanecen en el caché de docker hasta que se cambia algo en ellas, por lo que si creamos un container a partir de esta imagen
+al ejecutarse el container, si no hemos modificado el dockerfile se rescata cada capa desde el caché de la ejecución anterior y no del dockerfile. Si modificamos algo que corresponde a las capas de la imagen en el dockerfile(el código por ejemplo), ahi si que se obtiene la capa desde el dockerfile y no del caché.
+
+Podemos optimizar el Dockerfile para que se genere el jar con la imagen en vez de estarlo haciendo nosotros por comandos (ver dockerfile modificado). 
+Para generar el jar con la imagen ejecutó el siguiente comando desde el proyecto principal curso-kubernetes : docker build -t nombreImagenACrear . -f.\msvc-usuarios\Dockerfile (el punto hace alusion a donde estamos parados, en este caso curso-kubernetes).
+En el caso que nosotros generamos jar por comandos se demora menos en crear la imagen, ya que al generar el jar obtiene las librerias de nuestro repositorio local. Al hacerlo por imagen descarga las librerias desde internetla primera vez (en las ejecuciones siguientes sin embargo quedan en la caché)!
+Sin embargo si queremos modificar algo en el código tiene la ventaja que no tenemos que estar generando nosotros el jar cada vez.
+
+El dockerfile puede trabajarse tambien por medio de etapas (cada FROM etapa es un stage o etapa). L segunda etapa se basa en la primera y asi sucesivamente. Si no se modifica nada de la primera etapa y solo se mofifica algo en la segunda, la ejecucion para la primera etapa es rapisisima, aunque en realidad si no se tuviera por etapas tambien sería rápida la ejecución para la primera, porque quedaría en caché.
+Sin embargo la principal ventaja es que se pueden separar diferentes etapas de ejecución para ver fallos en cada etapa.
+
+*MODO INTERACTIVO
+El modo interactivo permite trabajar dentro de docker como si fuera un terminal normal de linux. El entrypoint no permite hacer esto, debemos cambiarlo en el dockerfile por: CMD ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+Luego ejecutamos docker run -p 8001:8001 --rm -it idImagen /bin/sh. Entonces se abre /app (/app fue el nombre que dimos en el workdir del dockerfile) y entonces podemos trabajar con el terminal linux en docker. Despues salimos de /app con el comando exit
+Podemos copiar un archivo desde nuestro directorio del proyecto a un contenedor en ejecucion en modo interactivo (en otro terminal) con: docker cp .\NombreArchivo.java idContainer:/a
+pp/Login.java. 
+
+*COMUNICACION ENTRE COMPONENTES
+En el application.properties debemos escribir: spring.datasource.url=jdbc:postgresql://localhost:host.docker.internal/nombreMicroservicio ; Ademas en el cliente rest debemos escribir el nombre del otro microservicio (con el que nos queremos comunicar, por ejemplo @FeignClient(name="msvc-cursos", url="msvc-cursos:8002") 
+                                                                                                                            
+
+
+

@@ -38,8 +38,15 @@
 *En vez de eso loque necesita es borrar un usuario asignado a un curso de msvc-curso al ser eliminado el usuario de msvc-usuario.Para ello hizo lo siguiente:
 *Creó un cliente en msvc-usuario llamado CursoClienteRest.
 *Lo ocupó en el servicio UsuarioServiceImpl dentro del método eliminar. Probó en postman.
-13) Generar container docker
-* Generó el jar
+13) Generar container docker para msvc-usuarios y hacer que se comunique con la bbdd local y con el otro servicio(msvc-cursos)tambien en local 
+Nota: ver archivo "DockerAndresGuzman"
+*Modificó el application properties
+* Generó el jar (despues  configuró el dockerfile para que la imagen  creara ella misma el jar) 
+* Escribió el Dockerfile
+* Generó la imagen docker
+* Generó el container docker
+14) Generar container docker en el otro servicio, para que se comuniquen ambos servicios con sus respectivos container docker (aunque con las bbdd aun en local)
+*Modificó el application properties y las interfaces de cliente
 * Escribió el Dockerfile
 * Generó la imagen docker
 * Generó el container docker
