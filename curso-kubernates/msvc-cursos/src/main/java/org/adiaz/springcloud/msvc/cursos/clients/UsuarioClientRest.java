@@ -10,7 +10,7 @@ import java.util.List;
 //Este es un cliente http con feign. Se podría hacer con http rest template también. Acá ya está listo para ser inyectado por dependencias en el servicio (CursoServiceImpl)
 
 //@FeignClient(name="msvc-usuarios",url="localhost:8001") //quiere decir q vamos a consumir msvc-usuarios acá. Esto es cuando probamos en local
-@FeignClient(name="msvc-usuarios",url="msvc-usuarios:8001") //quiere decir q vamos a consumir msvc-usuarios acá. Esto es cuando probamos en docker desde un contenedor con un microservicio a otro contenedor con el otro microservicio
+@FeignClient(name="msvc-usuarios", url="msvc-usuarios:8001") //quiere decir q vamos a consumir msvc-usuarios acá. Esto es cuando probamos en docker desde un contenedor con un microservicio a otro contenedor con el otro microservicio
 public interface UsuarioClientRest {
 
     //Nota: los métodos detalle, crear, etc. los saca todos del controlador msvc-usuarios UsuarioController
