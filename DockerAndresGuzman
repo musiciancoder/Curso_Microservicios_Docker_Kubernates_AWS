@@ -63,6 +63,13 @@ ENV PORT 8000
 EXPOSE $PORT
 Sin embargo, las variables de entorno que se setean en la line de comandos (con -e o -env) sobreescriben cualquier variable de ambiente en el Dockerfile.El comando seria:  docker run -p 8001:8090 --env PORT=8090 -d --rm --name msvc-usuarios --network spring usuarios
  Alternativamente se puede usar un archivo llamado .env a nivel del pom en los directorios donde se setean las variables de entornos. El comando aqui seria: docker run -p 8001:8091 --env-file .\msvc-usuarios\.env -d --rm --name msvc-usuarios --network spring usuarios
+ Los argumentos son variables constantes para ser utilizadas en el dockerfile. 
+ Ejemplo de seteo puerto en Dockerfile puerto interno  del contenedor: 
+ ARG PORT_APP=8001
+ ENV PORT $PORT_APP
+Sin embargo el puerto anterior puede ser sobrescrito al crear la imagen con el comando:  docker build -t usuarios . -f.\msvc-usuarios\Dockerfile --build-arg PORT_APP=8080
+Cualquier variable de application.properties se puede flexibilizar con ${}. 
+
 
 
 

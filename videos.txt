@@ -54,5 +54,6 @@ Nota: ver archivo "DockerAndresGuzman"
 *Levantó mysql (ver comandosDocker)
 *Levantó postgres (ver comandosDocker)
 16)Comunicó los cuatro contenedores (mysql, postgres, msvc-cursos, msvc-usuarios) entre ellos (tuvo q modificar el aplicacion.properties para apuntar a las bbdd de los contenedores que tienen las bbdd)
+17)Flexibilizó variables en application.properties (coneccion a bbdd, username y password) en ambos servicios para ser sobrescritas por variables de entorno por comando (al crear un container con run) o en archivo .env
 
 
