@@ -54,6 +54,17 @@ docker run -p 5532:5432 --name postgres14 --network spring -e POSTGRES_PASSWORD=
  *EJECUTAR COMANDOS POSTGRES Y MYSQL DENTRO DE UN CONTENEDOR DOCKER
  POSTGRES: docker run -it --rm --network nombreNetwork postgres:14-alpine psql -h postgres14 -U postgres (postgres14 es nombre de la imagen)
  MYSQL:docker run -it --rm --network nombreNetwork mysql8 bash (mysql8 es nombre de la imagen)
+ 
+ *Variables de entorno y argumentos
+server.port=${PORT:8001} en application.properties esto quiere decir que si no hay un puerto asignado en las variables de entorno (en el dockerfile por ejemplo, se conectará al puerto 8001
+En dockerfile (sobrescribe al aplicacion.properties):
+ENV PORT 8000
+#exponer puerto de la linea anterior
+EXPOSE $PORT
+Sin embargo, las variables de entorno que se setean en la line de comandos (con -e o -env) sobreescriben cualquier variable de ambiente en el Dockerfile.El comando seria:  docker run -p 8001:8090 --env PORT=8090 -d --rm --name msvc-usuarios --network spring usuarios
+ Alternativamente se puede usar un archivo llamado .env a nivel del pom en los directorios donde se setean las variables de entornos. El comando aqui seria: docker run -p 8001:8091 --env-file .\msvc-usuarios\.env -d --rm --name msvc-usuarios --network spring usuarios
+
+
 
 
 

@@ -25,8 +25,10 @@ WORKDIR /app
 #para que guarde los logs en ./logs
 RUN mkdir ./logs
 COPY --from=builder /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar .
-#exponer puerto
-EXPOSE 8001
+#variable de entorno para puerto interno  del contenedor
+ENV PORT 8000
+#exponer puerto de la linea anterior
+EXPOSE $PORT
 #cada vez que ejecutamos un contenedor automaticamente se dirige a ejecutar el comando que está dentro delpunto de entrada. En este caso va a ejecutar el jar.
 #ojo con el target, ya q si lo hemos generado nosotros con comando mvn package en entrypoint solo debe ir ./msvc-usuarios-0.0.1-SNAPSHOT.jar . El punto en este caso hace referencia al directorio donde estamos en la linea de comandos
 #ENTRYPOINT ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
