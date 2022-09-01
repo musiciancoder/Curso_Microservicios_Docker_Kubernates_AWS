@@ -44,7 +44,18 @@ _usuarios mysql:8
 LEVANTAR UNA BBDD EN LOCAL COMO UN CONTAINER POSTGRES:docker run -p 5532:5432 --name nombreContainerAEjecutar --network nombreNetwork -e POSTGRES_PASSWORD=sasa -e POSTGRES_DB=msvc_cursos -d po
 stgres:14-alpine (la ultima es la imagen de postgres en internet (sino se ha descargado previamente con docker pull 14-alpine la descarga igual aca))
 En los microservicios que se conectan a las bbdd en loc contenedores de ambos casos anteriores se debe cambiar en el aplication.properties spring.datasource.url=jdbc:mysql://nombreContainerMysql:3306/nombreDeEsteMicroservicio y spring.datasource.url=jdbc:mysql://nombreContainerPostgres:5432/nombreDeEsteMicroservicio 
-Lo anterior está perfecto, sin embargo cuando detenemos el container de mysql o postgres y levantamos de nuevo las tablas vuelven a estar en blanco, o sea los datos no persisten
+Lo anterior está perfecto, sin embargo cuando detenemos el container de mysql o postgres y levantamos de nuevo las tablas vuelven a estar en blanco, o sea los datos no persisten. Para ello debemos crear los contenedores de las bbdd con volumenes con estos comandos:
+ docker run -d -p 3308:3306 --name mysql8 --network spring -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=msvc_usua
+rios -v data-mysql:/var/lib/mysql --restart=always mysql:8
+docker run -p 5532:5432 --name postgres14 --network spring -e POSTGRES_PASSWORD=sasa -e POSTGRES_DB=msvc_cursos -d -v
+ data-postgres:/var/lib/postgresql/data --restart=always  postgres:14-alpine
+ docker volume ls:lista volumenes
+ 
+ *EJECUTAR COMANDOS POSTGRES Y MYSQL DENTRO DE UN CONTENEDOR DOCKER
+ POSTGRES: docker run -it --rm --network nombreNetwork postgres:14-alpine psql -h postgres14 -U postgres (postgres14 es nombre de la imagen)
+ MYSQL:docker run -it --rm --network nombreNetwork mysql8 bash (mysql8 es nombre de la imagen)
+
+
 
 
 

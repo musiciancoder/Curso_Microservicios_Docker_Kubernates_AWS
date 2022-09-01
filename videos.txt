@@ -53,5 +53,6 @@ Nota: ver archivo "DockerAndresGuzman"
 15)Levantar bbdd localmente en contenedores
 *Levantó mysql (ver comandosDocker)
 *Levantó postgres (ver comandosDocker)
+16)Comunicó los cuatro contenedores (mysql, postgres, msvc-cursos, msvc-usuarios) entre ellos (tuvo q modificar el aplicacion.properties para apuntar a las bbdd de los contenedores que tienen las bbdd)
 
 
