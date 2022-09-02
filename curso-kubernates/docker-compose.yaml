@@ -1,0 +1,12 @@
+#esta es la version de docker -compose
+version: "3.9"
+#en archivos yaml cada elemento con sangria es un hijo del elemento sin sangria
+#los services son los contenedores
+services:
+  mysql8:
+
+  postgres14:
+
+  msvc-usuarios:
+
+  msvc-cursos:
