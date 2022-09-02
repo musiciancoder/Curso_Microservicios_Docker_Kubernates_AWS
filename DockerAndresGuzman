@@ -55,6 +55,7 @@ docker run -p 5532:5432 --name postgres14 --network spring -e POSTGRES_PASSWORD=
  POSTGRES: docker run -it --rm --network nombreNetwork postgres:14-alpine psql -h postgres14 -U postgres (postgres14 es nombre de la imagen)
  MYSQL:docker run -it --rm --network nombreNetwork mysql8 bash (mysql8 es nombre de la imagen)
  
+ 
  *Variables de entorno y argumentos
 server.port=${PORT:8001} en application.properties esto quiere decir que si no hay un puerto asignado en las variables de entorno (en el dockerfile por ejemplo, se conectará al puerto 8001
 En dockerfile (sobrescribe al aplicacion.properties):

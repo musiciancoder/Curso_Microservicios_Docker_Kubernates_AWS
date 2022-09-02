@@ -40,7 +40,7 @@ _usuarios mysql:8
 LEVANTAR UNA BBDD EN LOCAL COMO UN CONTAINER POSTGRES:docker run -p 5532:5432 --name nombreContainerAEjecutar --network nombreNetwork -e POSTGRES_PASSWORD=sasa -e POSTGRES_DB=msvc_cursos -d po
 stgres:14-alpine (la ultima es la imagen de postgres en internet (sino se ha descargado previamente con docker pull 14-alpine la descarga igual aca))
 En ambos casos anteriores se debe cambiar en el aplication.properties spring.datasource.url=jdbc:mysql://nombreContainerMysql:3306/nombreDeEsteMicroservicio y spring.datasource.url=jdbc:mysql://nombreContainerPostgres:5432/nombreDeEsteMicroservicio 
-
+Borrar volumenes: docker volume rm $(docker volume ls -qf dangling=true)
 CORRER CONTAINER CON VARIABLES DE ENTORNO EN ARCHIVO EXTERNO: docker run -p 8002:8002 --env-file .\msvc-cursos\.env -d --rm --name msvc-cursos --network spring cursos
 docker container inspect msvc-cursos: revisar seteo de variables de entorno luego de la ejecucion
 

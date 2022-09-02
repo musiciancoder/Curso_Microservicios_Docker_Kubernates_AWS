@@ -54,6 +54,9 @@ Nota: ver archivo "DockerAndresGuzman"
 *Levantó mysql (ver comandosDocker)
 *Levantó postgres (ver comandosDocker)
 16)Comunicó los cuatro contenedores (mysql, postgres, msvc-cursos, msvc-usuarios) entre ellos (tuvo q modificar el aplicacion.properties para apuntar a las bbdd de los contenedores que tienen las bbdd)
-17)Flexibilizó variables en application.properties (coneccion a bbdd, username y password) en ambos servicios para ser sobrescritas por variables de entorno por comando (al crear un container con run) o en archivo .env
+17)Seteó volumenes con los comandos para persistir las bbdd contenidas en los contenedores cuando se reinicie docker (a mi me funionó solamente para postgres, con mysql bench hubo un problema, pero no de volumenes, sino de coneccion)
+18)Flexibilizó variables en application.properties (coneccion a bbdd, username y password) en ambos servicios para ser sobrescritas por variables de entorno por comando (al crear un container con run) o en archivo .env
+19)Crear un orquestador para multicontenedores
+*Crear docker compose
 
 
