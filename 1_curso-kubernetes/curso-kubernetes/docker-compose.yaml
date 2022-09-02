@@ -1,14 +1,11 @@
-#version del docker-compose
 version: "3.9"
-#services es lo mismo que contenedores
 services:
-  #mysql8 debe ser el mismo nombre q le damos en el --name al correr con docker run en linea de comandos cuando no ocupamos docker-compose
   mysql8:
     image: mysql:8
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: sasa
       MYSQL_DATABASE: msvc_usuarios
     volumes:
       - data-mysql:/var/lib/mysql
@@ -50,7 +47,6 @@ services:
     depends_on:
       - postgres14
     restart: always
-    #volumes y networks deben estar definidos a nivel global
 volumes:
   data-mysql:
   data-postgres:
