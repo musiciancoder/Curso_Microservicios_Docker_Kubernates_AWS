@@ -2,11 +2,11 @@
 Docker es un administrador de contenedores. 
 Un contenedor es una caja de herramienta asilada con un porción de un sistema operativo para ejecutar aplicaciones en nuestra maquina host.
 Es un empaquetado del código y dependencias para ejecutar que ese código, la aplicación (ejemplo aplicación con Spring + JDK runtime).
-Un mismo contenedor que se ejecuta siempre debe reproducir exactamente el mismo comportamiento de la aplicación, sin importar dónde o quién lo ejecuta
+Un mismo contenedor que se ejecuta siempre debe reproducir exactamente el mismo comportamiento de la aplicación, sin importar dónde o quién lo ejecuta ni la version de jdk o de spring o de dependencias locales de la maquina que lo ejecuta, ya q todo esta en el contenedor)
 
 *IMAGENES VS CONTENEDORES
 La imagen es una plantilla que contiene el código y ambiente necesario(runtime, herramientas, librerias). Los contenedores son instancias de esta plantilla que ejecutan la aplicacion y el
-ambiente necesario para su ejecución. Podemos generar imagenes propias por medio de dockerfile o bien ocupar directamente imagenes creadas en internet (caso cuando ejecutamos una imagen para levantar bbdd locales con imagenes de mysql o postgress (se explica mas adelante)).
+ambiente necesario para su ejecución. Podemos generar imagenes propias por medio de dockerfile o bien ocupar directamente imagenes creadas en docker hub (caso cuando ejecutamos una imagen para levantar bbdd locales con imagenes de mysql o postgress (se explica mas adelante)).
 
 *DOCKERFILE
 Podemos descargarnos imagenes desde hub.docker.com que ya estan listas para java, mysql, etc. La versión de la imagen se busca en tag o en el buscador.
@@ -72,7 +72,16 @@ Sin embargo el puerto anterior puede ser sobrescrito al crear la imagen con el c
 Cualquier variable de application.properties se puede flexibilizar con ${}. 
 
 *Docker compose
-docker-compose-yaml es un archivo donde van las configuraciones para q varios contenedores corran sinultaneamente. Es como tener el comando docker run -p etc. en un archivo para varios contenedores que se conectan entre sí. Las imagenes deben estar creadas con anterioridad.
+docker-compose-yaml es un archivo donde van las configuraciones para q varios contenedores corran sinultaneamente. Es como tener el comando docker run -p etc. en un archivo para varios contenedores que se conectan entre sí. 
+Existen dos posibilidades: 1)Las imagenes estan creadas con anterioridad, en cuyo caso se utiliza la etiqueta image en el dockerfile.  2)Las imagenes las construye el mismo docker compose en cuyo caso se utiliza la etiqueta build en el dockerfile.
+
+
+*Docker hub
+Se usa para compartir imagenes en la web entre desarrolladores (ademas siempre podemos compartir el Dockerfile al compañero).
+Mi cuenta en docker hub es andrele123 con la contraseña de siempre. 
+Se crea el repositorio en docker hub, y luego la imagen en local se debe crear con docker build -t nombreUsuario/nombreImagen (notar que no es solo nombreImagen, sino debe llevar nombre de usuario) se sube con docker push nombreUsuario/nombreImagen. Si pide credenciales se las damos con comando docker login  
+
+
 
 
 
