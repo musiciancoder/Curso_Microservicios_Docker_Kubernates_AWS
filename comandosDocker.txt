@@ -56,6 +56,10 @@ docker-compose down -v: parar y eliminar contenedores y eliminar volumenes
 docker-compose  stop: parar y no eliminar contenedores
 docker-compose start: reiniciar contenedores
 
+docker push nombreUsuario/nombreImagen : subir imagen a docker hub
+docker pull nombreUsuario/nombreImagen : descarga imagen de docker hub
+docker login: loguearse en docker hub
+
 
 
 CREAR UN CONTAINER

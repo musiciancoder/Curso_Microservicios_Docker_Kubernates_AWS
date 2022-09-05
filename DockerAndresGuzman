@@ -79,7 +79,9 @@ Existen dos posibilidades: 1)Las imagenes estan creadas con anterioridad, en cuy
 *Docker hub
 Se usa para compartir imagenes en la web entre desarrolladores (ademas siempre podemos compartir el Dockerfile al compañero).
 Mi cuenta en docker hub es andrele123 con la contraseña de siempre. 
-Se crea el repositorio en docker hub, y luego la imagen en local se debe crear con docker build -t nombreUsuario/nombreImagen (notar que no es solo nombreImagen, sino debe llevar nombre de usuario) se sube con docker push nombreUsuario/nombreImagen. Si pide credenciales se las damos con comando docker login  
+Se crea el repositorio en docker hub, y luego la imagen en local se debe crear con docker build -t nombreUsuario/nombreImagen (notar que no es solo nombreImagen, sino debe llevar nombre de usuario); se sube con docker push nombreUsuario/nombreImagen. Si pide credenciales se las damos con comando docker login.
+Para descargar repositorio es con docker push nombreUsuario/nombreImagen. El docker-compose se deja listo para descargar de internet con image: nombreUsuario/nombreImagen. De esta forma lo podemos llevar a aws
+
 
 
 
