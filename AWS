@@ -1,0 +1,22 @@
+* Crear instancia para microservicio en aws con EC2 (administracion de microservicios manual)
+En el panel de EC2 hacer click en 'Lanzar instancia'.
+Editar un grupo de seguridad para ssh en puerto 22 y otros dos para puertos 8001 y 8002 (Tipo de origen = cualquier lugar)
+Luego, al hacer click en "Lanzar instancia" va a pedir un par de claves. Darselas. Entonces descargará un pem que debe ser guardado en la carpeta del proyecto.
+Luego nos conectamos por ssh (que es un protocolo de conexion segura a servidores) mediante putty o wsl.exe
+Finalmente damos click en "Lanzar instancia". Podemos ver como evoluciona en la seccion instancias, en aws.
+Entrar a putty a nuestro disco de nuestro computador local (root@Ip)
+Hacemos click en el checkbox de la instancia y hacemos click en "conectar". Luego vamos a "cliente ssh", copiamos donde dice "Conéctese a la instancia mediante su DNS público:" y lo pegamos en la consola Putty. Entonces aparecerá EC2, que significa que estamos conectados desde la instancia.
+Debemos en la instancia instalar docker, copiar el docker-compose desde el local y ejecutar (ver videos y logs de consola). Luego probar en postman con DNS de IPv4 publica (copiar de AWS) en vez de localhost en las peticiones.
+
+*ECS (administracion de microservicios por aws)
+El cluster de ECS es la red que administra nuestros microservicios. A su vez cada uno de estos microservicios ejecutan las tareas que contienen contenedores, manejando el tráfico de entrada asignado 
+a un puerto especifico y una IP publica que se le asigna en forma automatica. Mediante esa IP podemos acceder a los contenedores contenidos en tareas contenidos en servicios contenidos en el cluster.
+-Crear cluster
+-Crear definicion de tarea --> seleccionamos Fargate (que no es un servidor constante, sino q se activa solo cuando hay peticiones) -->pantalla siguiente seleccionar rol (abrir consola IAM y seguir pasos pantallazos si no tenemos rol creados)
+-Agregar container (ver pantallazos)
+-Crear el servicio, que es el que maneja el trafico a través de un puerto. Administra el balanceo de cargas (load balancer) y se encarga de la seguridad mediante un firewall, ambas caracteristicas son opcionales porque cobran mas money.
+
+
+
+ 
+

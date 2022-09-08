@@ -1,0 +1,38 @@
+andrele123@LAPTOP-0JOL34HF:~$ sudo s
+[sudo] password for andrele123:
+sudo: s: command not found
+andrele123@LAPTOP-0JOL34HF:~$ sudo su
+root@LAPTOP-0JOL34HF:/home/andrele123# cd
+root@LAPTOP-0JOL34HF:~# cd /mnt/ c
+bash: cd: too many arguments
+root@LAPTOP-0JOL34HF:~# cd /mnt/c
+root@LAPTOP-0JOL34HF:/mnt/c# ls
+ls: cannot access 'DumpStack.log.tmp': Permission denied
+ls: cannot access 'hiberfil.sys': Permission denied
+ls: cannot access 'pagefile.sys': Permission denied
+ls: cannot access 'swapfile.sys': Permission denied
+'$Recycle.Bin'                                DRIVERS                   OpenSSL-Win64             SpringUdemyRecursos          cursoNodeMito   pacientes_1                 untitled
+'$WinREAgent'                                'Documents and Settings'   PerfLogs                 'System Volume Information'   cygwin64        pacients                    untitled1
+ Angular9                                     DumpStack.log.tmp        'Program Files'            Users                        data            pagefile.sys                wamp
+ AngularUniversity                            GC                       'Program Files (x86)'      Windows                      debugging       pruebasJavascriptECMA6      wamp64
+ Apache24                                     Hibernate                 ProgramData               WorkspaceAngular             empleos         spring-boot-backend-chat3   workspace
+'Archivos de programa'                        HtmlBootstrapCss          ProyectoAngularEnBlanco   adobeTemp                    hiberfil.sys    spring5                     workspace2
+ CursoDeReact                                 Intel                     Python                    aplicacionChat               hp              swapfile.sys                workspaceRespaldo
+ CursoReactUdemy_Pantallazos_Explicaciones    JamVox                    Recovery                  chat-app                     java-project    tmp
+ CursoSpringPildoras                         'Nueva carpeta'            SWSetup                   chat-app3                    mychatfront     tools
+ Curso_Microservicios_Docker_Kubernates_AWS   OneDriveTemp              SYSTEM.SAV                cursoAWS                     mypatients      tutorialJwt
+root@LAPTOP-0JOL34HF:/mnt/c# cd Curso_Microservicios_Docker_Kubernates_AWS/
+root@LAPTOP-0JOL34HF:/mnt/c/Curso_Microservicios_Docker_Kubernates_AWS# cp docker-compose.yaml /root
+cp: cannot stat 'docker-compose.yaml': No such file or directory
+root@LAPTOP-0JOL34HF:/mnt/c/Curso_Microservicios_Docker_Kubernates_AWS# cd curso-kubernates/
+root@LAPTOP-0JOL34HF:/mnt/c/Curso_Microservicios_Docker_Kubernates_AWS/curso-kubernates# cp docker-compose.yaml /root
+root@LAPTOP-0JOL34HF:/mnt/c/Curso_Microservicios_Docker_Kubernates_AWS/curso-kubernates# cd
+root@LAPTOP-0JOL34HF:~# ls
+docker-compose.yaml  spring-cloud.pem
+root@LAPTOP-0JOL34HF:~# scp -i "spring-cloud.pem" docker-compose ec2-user@ec2-18-212-216-188.compute-1.amazonaws.com:home/ec2-user
+docker-compose: No such file or directory
+root@LAPTOP-0JOL34HF:~# scp -i "spring-cloud.pem" docker-compose.yaml ec2-user@ec2-18-212-216-188.compute-1.amazonaws.com:home/ec2-user
+scp: home/ec2-user: No such file or directory
+root@LAPTOP-0JOL34HF:~# scp -i "spring-cloud.pem" docker-compose.yaml ec2-user@ec2-18-212-216-188.compute-1.amazonaws.com:/home/ec2-user
+docker-compose.yaml                                                                                                                                                              100% 2056    13.6KB/s   00:00
+root@LAPTOP-0JOL34HF:~#

@@ -1,0 +1,316 @@
+andrele123@LAPTOP-0JOL34HF:~$ sudo su
+[sudo] password for andrele123:
+root@LAPTOP-0JOL34HF:/home/andrele123# cd
+root@LAPTOP-0JOL34HF:~# ssh -i "spring-cloud.pem" ec2-user@ec2-18-212-216-188.compute-1.amazonaws.com
+The authenticity of host 'ec2-18-212-216-188.compute-1.amazonaws.com (18.212.216.188)' can't be established.
+ECDSA key fingerprint is SHA256:ow+RXecQbIRA63FX6oYU95StDD/H2oEJTfKhqdqNUfk.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added 'ec2-18-212-216-188.compute-1.amazonaws.com,18.212.216.188' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+3 package(s) needed for security, out of 8 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-27-150 ~]$ ls
+[ec2-user@ip-172-31-27-150 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-27-150 ~]$ sudo yum update -y
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                                                                                                                  | 3.7 kB  00:00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package chrony.x86_64 0:4.0-3.amzn2.0.2 will be updated
+---> Package chrony.x86_64 0:4.2-5.amzn2.0.2 will be an update
+---> Package dhclient.x86_64 12:4.2.5-77.amzn2.1.6 will be updated
+---> Package dhclient.x86_64 12:4.2.5-79.amzn2.1.1 will be an update
+---> Package dhcp-common.x86_64 12:4.2.5-77.amzn2.1.6 will be updated
+---> Package dhcp-common.x86_64 12:4.2.5-79.amzn2.1.1 will be an update
+---> Package dhcp-libs.x86_64 12:4.2.5-77.amzn2.1.6 will be updated
+---> Package dhcp-libs.x86_64 12:4.2.5-79.amzn2.1.1 will be an update
+---> Package gnupg2.x86_64 0:2.0.22-5.amzn2.0.4 will be updated
+---> Package gnupg2.x86_64 0:2.0.22-5.amzn2.0.5 will be an update
+---> Package kernel.x86_64 0:5.10.135-122.509.amzn2 will be installed
+---> Package kernel-tools.x86_64 0:5.10.130-118.517.amzn2 will be updated
+---> Package kernel-tools.x86_64 0:5.10.135-122.509.amzn2 will be an update
+---> Package tzdata.noarch 0:2022a-1.amzn2 will be updated
+---> Package tzdata.noarch 0:2022c-1.amzn2 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================================================================================== Package                                        Arch                                     Version                                                    Repository                                                Size
+===================================================================================================================================================================================================================Installing:
+ kernel                                         x86_64                                   5.10.135-122.509.amzn2                                     amzn2extra-kernel-5.10                                    32 M
+Updating:
+ chrony                                         x86_64                                   4.2-5.amzn2.0.2                                            amzn2-core                                               302 k
+ dhclient                                       x86_64                                   12:4.2.5-79.amzn2.1.1                                      amzn2-core                                               287 k
+ dhcp-common                                    x86_64                                   12:4.2.5-79.amzn2.1.1                                      amzn2-core                                               177 k
+ dhcp-libs                                      x86_64                                   12:4.2.5-79.amzn2.1.1                                      amzn2-core                                               132 k
+ gnupg2                                         x86_64                                   2.0.22-5.amzn2.0.5                                         amzn2-core                                               1.5 M
+ kernel-tools                                   x86_64                                   5.10.135-122.509.amzn2                                     amzn2extra-kernel-5.10                                   176 k
+ tzdata                                         noarch                                   2022c-1.amzn2                                              amzn2-core                                               481 k
+
+Transaction Summary
+===================================================================================================================================================================================================================Install  1 Package
+Upgrade  7 Packages
+
+Total download size: 35 M
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+(1/8): chrony-4.2-5.amzn2.0.2.x86_64.rpm                                                                                                                                                    | 302 kB  00:00:00
+(2/8): dhclient-4.2.5-79.amzn2.1.1.x86_64.rpm                                                                                                                                               | 287 kB  00:00:00
+(3/8): dhcp-common-4.2.5-79.amzn2.1.1.x86_64.rpm                                                                                                                                            | 177 kB  00:00:00
+(4/8): dhcp-libs-4.2.5-79.amzn2.1.1.x86_64.rpm                                                                                                                                              | 132 kB  00:00:00
+(5/8): gnupg2-2.0.22-5.amzn2.0.5.x86_64.rpm                                                                                                                                                 | 1.5 MB  00:00:00
+(6/8): tzdata-2022c-1.amzn2.noarch.rpm                                                                                                                                                      | 481 kB  00:00:00
+(7/8): kernel-tools-5.10.135-122.509.amzn2.x86_64.rpm                                                                                                                                       | 176 kB  00:00:00
+(8/8): kernel-5.10.135-122.509.amzn2.x86_64.rpm                                                                                                                                             |  32 MB  00:00:00
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Total                                                                                                                                                                               48 MB/s |  35 MB  00:00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 12:dhcp-libs-4.2.5-79.amzn2.1.1.x86_64                                                                                                                                                         1/15
+  Updating   : 12:dhcp-common-4.2.5-79.amzn2.1.1.x86_64                                                                                                                                                       2/15
+  Updating   : 12:dhclient-4.2.5-79.amzn2.1.1.x86_64                                                                                                                                                          3/15
+  Updating   : tzdata-2022c-1.amzn2.noarch                                                                                                                                                                    4/15
+  Updating   : kernel-tools-5.10.135-122.509.amzn2.x86_64                                                                                                                                                     5/15
+  Installing : kernel-5.10.135-122.509.amzn2.x86_64                                                                                                                                                           6/15
+  Updating   : chrony-4.2-5.amzn2.0.2.x86_64                                                                                                                                                                  7/15
+  Updating   : gnupg2-2.0.22-5.amzn2.0.5.x86_64                                                                                                                                                               8/15
+  Cleanup    : 12:dhclient-4.2.5-77.amzn2.1.6.x86_64                                                                                                                                                          9/15
+  Cleanup    : 12:dhcp-common-4.2.5-77.amzn2.1.6.x86_64                                                                                                                                                      10/15
+  Cleanup    : 12:dhcp-libs-4.2.5-77.amzn2.1.6.x86_64                                                                                                                                                        11/15
+  Cleanup    : tzdata-2022a-1.amzn2.noarch                                                                                                                                                                   12/15
+  Cleanup    : kernel-tools-5.10.130-118.517.amzn2.x86_64                                                                                                                                                    13/15
+  Cleanup    : chrony-4.0-3.amzn2.0.2.x86_64                                                                                                                                                                 14/15
+  Cleanup    : gnupg2-2.0.22-5.amzn2.0.4.x86_64                                                                                                                                                              15/15
+  Verifying  : 12:dhcp-libs-4.2.5-79.amzn2.1.1.x86_64                                                                                                                                                         1/15
+  Verifying  : 12:dhclient-4.2.5-79.amzn2.1.1.x86_64                                                                                                                                                          2/15
+  Verifying  : gnupg2-2.0.22-5.amzn2.0.5.x86_64                                                                                                                                                               3/15
+  Verifying  : chrony-4.2-5.amzn2.0.2.x86_64                                                                                                                                                                  4/15
+  Verifying  : 12:dhcp-common-4.2.5-79.amzn2.1.1.x86_64                                                                                                                                                       5/15
+  Verifying  : kernel-5.10.135-122.509.amzn2.x86_64                                                                                                                                                           6/15
+  Verifying  : kernel-tools-5.10.135-122.509.amzn2.x86_64                                                                                                                                                     7/15
+  Verifying  : tzdata-2022c-1.amzn2.noarch                                                                                                                                                                    8/15
+  Verifying  : gnupg2-2.0.22-5.amzn2.0.4.x86_64                                                                                                                                                               9/15
+  Verifying  : 12:dhcp-libs-4.2.5-77.amzn2.1.6.x86_64                                                                                                                                                        10/15
+  Verifying  : 12:dhclient-4.2.5-77.amzn2.1.6.x86_64                                                                                                                                                         11/15
+  Verifying  : kernel-tools-5.10.130-118.517.amzn2.x86_64                                                                                                                                                    12/15
+  Verifying  : tzdata-2022a-1.amzn2.noarch                                                                                                                                                                   13/15
+  Verifying  : 12:dhcp-common-4.2.5-77.amzn2.1.6.x86_64                                                                                                                                                      14/15
+  Verifying  : chrony-4.0-3.amzn2.0.2.x86_64                                                                                                                                                                 15/15
+
+Installed:
+  kernel.x86_64 0:5.10.135-122.509.amzn2
+
+Updated:
+  chrony.x86_64 0:4.2-5.amzn2.0.2                dhclient.x86_64 12:4.2.5-79.amzn2.1.1   dhcp-common.x86_64 12:4.2.5-79.amzn2.1.1   dhcp-libs.x86_64 12:4.2.5-79.amzn2.1.1   gnupg2.x86_64 0:2.0.22-5.amzn2.0.5
+  kernel-tools.x86_64 0:5.10.135-122.509.amzn2   tzdata.noarch 0:2022c-1.amzn2
+
+Complete!
+[ec2-user@ip-172-31-27-150 ~]$ sudo amazon-linux-extras install docker
+Installing docker
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Cleaning repos: amzn2-core amzn2extra-docker amzn2extra-kernel-5.10
+17 metadata files removed
+6 sqlite files removed
+0 metadata files removed
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                                                                                                                  | 3.7 kB  00:00:00
+amzn2extra-docker                                                                                                                                                                           | 3.0 kB  00:00:00
+amzn2extra-kernel-5.10                                                                                                                                                                      | 3.0 kB  00:00:00
+(1/7): amzn2-core/2/x86_64/updateinfo                                                                                                                                                       | 495 kB  00:00:00
+(2/7): amzn2-core/2/x86_64/group_gz                                                                                                                                                         | 2.5 kB  00:00:00
+(3/7): amzn2extra-docker/2/x86_64/updateinfo                                                                                                                                                | 6.4 kB  00:00:00
+(4/7): amzn2extra-docker/2/x86_64/primary_db                                                                                                                                                |  93 kB  00:00:00
+(5/7): amzn2extra-kernel-5.10/2/x86_64/updateinfo                                                                                                                                           |  18 kB  00:00:00
+(6/7): amzn2extra-kernel-5.10/2/x86_64/primary_db                                                                                                                                           |  11 MB  00:00:00
+(7/7): amzn2-core/2/x86_64/primary_db                                                                                                                                                       |  65 MB  00:00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package docker.x86_64 0:20.10.17-1.amzn2 will be installed
+--> Processing Dependency: runc >= 1.0.0 for package: docker-20.10.17-1.amzn2.x86_64
+--> Processing Dependency: libcgroup >= 0.40.rc1-5.15 for package: docker-20.10.17-1.amzn2.x86_64
+--> Processing Dependency: containerd >= 1.3.2 for package: docker-20.10.17-1.amzn2.x86_64
+--> Processing Dependency: pigz for package: docker-20.10.17-1.amzn2.x86_64
+--> Running transaction check
+---> Package containerd.x86_64 0:1.6.6-1.amzn2 will be installed
+---> Package libcgroup.x86_64 0:0.41-21.amzn2 will be installed
+---> Package pigz.x86_64 0:2.3.4-1.amzn2.0.1 will be installed
+---> Package runc.x86_64 0:1.1.3-1.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================================================================================== Package                                         Arch                                        Version                                                  Repository                                              Size
+===================================================================================================================================================================================================================Installing:
+ docker                                          x86_64                                      20.10.17-1.amzn2                                         amzn2extra-docker                                       39 M
+Installing for dependencies:
+ containerd                                      x86_64                                      1.6.6-1.amzn2                                            amzn2extra-docker                                       27 M
+ libcgroup                                       x86_64                                      0.41-21.amzn2                                            amzn2-core                                              66 k
+ pigz                                            x86_64                                      2.3.4-1.amzn2.0.1                                        amzn2-core                                              81 k
+ runc                                            x86_64                                      1.1.3-1.amzn2                                            amzn2extra-docker                                      2.9 M
+
+Transaction Summary
+===================================================================================================================================================================================================================Install  1 Package (+4 Dependent packages)
+
+Total download size: 69 M
+Installed size: 260 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/5): pigz-2.3.4-1.amzn2.0.1.x86_64.rpm                                                                                                                                                    |  81 kB  00:00:00
+(2/5): libcgroup-0.41-21.amzn2.x86_64.rpm                                                                                                                                                   |  66 kB  00:00:00
+(3/5): containerd-1.6.6-1.amzn2.x86_64.rpm                                                                                                                                                  |  27 MB  00:00:00
+(4/5): docker-20.10.17-1.amzn2.x86_64.rpm                                                                                                                                                   |  39 MB  00:00:00
+(5/5): runc-1.1.3-1.amzn2.x86_64.rpm                                                                                                                                                        | 2.9 MB  00:00:00
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Total                                                                                                                                                                               73 MB/s |  69 MB  00:00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : runc-1.1.3-1.amzn2.x86_64                                                                                                                                                                       1/5
+  Installing : containerd-1.6.6-1.amzn2.x86_64                                                                                                                                                                 2/5
+  Installing : libcgroup-0.41-21.amzn2.x86_64                                                                                                                                                                  3/5
+  Installing : pigz-2.3.4-1.amzn2.0.1.x86_64                                                                                                                                                                   4/5
+  Installing : docker-20.10.17-1.amzn2.x86_64                                                                                                                                                                  5/5
+  Verifying  : docker-20.10.17-1.amzn2.x86_64                                                                                                                                                                  1/5
+  Verifying  : runc-1.1.3-1.amzn2.x86_64                                                                                                                                                                       2/5
+  Verifying  : pigz-2.3.4-1.amzn2.0.1.x86_64                                                                                                                                                                   3/5
+  Verifying  : containerd-1.6.6-1.amzn2.x86_64                                                                                                                                                                 4/5
+  Verifying  : libcgroup-0.41-21.amzn2.x86_64                                                                                                                                                                  5/5
+
+Installed:
+  docker.x86_64 0:20.10.17-1.amzn2
+
+Dependency Installed:
+  containerd.x86_64 0:1.6.6-1.amzn2                     libcgroup.x86_64 0:0.41-21.amzn2                     pigz.x86_64 0:2.3.4-1.amzn2.0.1                     runc.x86_64 0:1.1.3-1.amzn2
+
+Complete!
+  0  ansible2                 available    \
+        [ =2.4.2  =2.4.6  =2.8  =stable ]
+  2  httpd_modules            available    [ =1.0  =stable ]
+  3  memcached1.5             available    \
+        [ =1.5.1  =1.5.16  =1.5.17 ]
+  5  postgresql9.6            available    \
+        [ =9.6.6  =9.6.8  =stable ]
+  6  postgresql10             available    [ =10  =stable ]
+  9  R3.4                     available    [ =3.4.3  =stable ]
+ 10  rust1                    available    \
+        [ =1.22.1  =1.26.0  =1.26.1  =1.27.2  =1.31.0  =1.38.0
+          =stable ]
+ 11  vim                      available    [ =8.0  =stable ]
+ 18  libreoffice              available    \
+        [ =5.0.6.2_15  =5.3.6.1  =stable ]
+ 19  gimp                     available    [ =2.8.22 ]
+ 20  docker=latest            enabled      \
+        [ =17.12.1  =18.03.1  =18.06.1  =18.09.9  =stable ]
+ 21  mate-desktop1.x          available    \
+        [ =1.19.0  =1.20.0  =stable ]
+ 22  GraphicsMagick1.3        available    \
+        [ =1.3.29  =1.3.32  =1.3.34  =stable ]
+ 23  tomcat8.5                available    \
+        [ =8.5.31  =8.5.32  =8.5.38  =8.5.40  =8.5.42  =8.5.50
+          =stable ]
+ 24  epel                     available    [ =7.11  =stable ]
+ 25  testing                  available    [ =1.0  =stable ]
+ 26  ecs                      available    [ =stable ]
+ 27  corretto8                available    \
+        [ =1.8.0_192  =1.8.0_202  =1.8.0_212  =1.8.0_222  =1.8.0_232
+          =1.8.0_242  =stable ]
+ 28  firecracker              available    [ =0.11  =stable ]
+ 29  golang1.11               available    \
+        [ =1.11.3  =1.11.11  =1.11.13  =stable ]
+ 30  squid4                   available    [ =4  =stable ]
+ 32  lustre2.10               available    \
+        [ =2.10.5  =2.10.8  =stable ]
+ 33  java-openjdk11           available    [ =11  =stable ]
+ 34  lynis                    available    [ =stable ]
+ 36  BCC                      available    [ =0.x  =stable ]
+ 37  mono                     available    [ =5.x  =stable ]
+ 38  nginx1                   available    [ =stable ]
+ 39  ruby2.6                  available    [ =2.6  =stable ]
+ 40  mock                     available    [ =stable ]
+ 41  postgresql11             available    [ =11  =stable ]
+ 42  php7.4                   available    [ =stable ]
+ 43  livepatch                available    [ =stable ]
+ 44  python3.8                available    [ =stable ]
+ 45  haproxy2                 available    [ =stable ]
+ 46  collectd                 available    [ =stable ]
+ 47  aws-nitro-enclaves-cli   available    [ =stable ]
+ 48  R4                       available    [ =stable ]
+  _  kernel-5.4               available    [ =stable ]
+ 50  selinux-ng               available    [ =stable ]
+ 51  php8.0                   available    [ =stable ]
+ 52  tomcat9                  available    [ =stable ]
+ 53  unbound1.13              available    [ =stable ]
+ 54  mariadb10.5              available    [ =stable ]
+ 55  kernel-5.10=latest       enabled      [ =stable ]
+ 56  redis6                   available    [ =stable ]
+ 57  ruby3.0                  available    [ =stable ]
+ 58  postgresql12             available    [ =stable ]
+ 59  postgresql13             available    [ =stable ]
+ 60  mock2                    available    [ =stable ]
+ 61  dnsmasq2.85              available    [ =stable ]
+ 62  kernel-5.15              available    [ =stable ]
+ 63  postgresql14             available    [ =stable ]
+ 64  firefox                  available    [ =stable ]
+ 65  lustre                   available    [ =stable ]
+[ec2-user@ip-172-31-27-150 ~]$ sudo service docker start
+Redirecting to /bin/systemctl start docker.service
+[ec2-user@ip-172-31-27-150 ~]$ docker version
+Client:
+ Version:           20.10.17
+ API version:       1.41
+ Go version:        go1.18.3
+ Git commit:        100c701
+ Built:             Thu Jun 16 20:08:47 2022
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/version": dial unix /var/run/docker.sock: connect: permission denied
+[ec2-user@ip-172-31-27-150 ~]$ sudo curl -SL https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 25.2M  100 25.2M    0     0   112M      0 --:--:-- --:--:-- --:--:--  112M
+[ec2-user@ip-172-31-27-150 ~]$ sudo chmod +x /usr/local/bin/docker-compose
+[ec2-user@ip-172-31-27-150 ~]$ docker-compose version
+Docker Compose version v2.5.0
+[ec2-user@ip-172-31-27-150 ~]$ sudo ln -s /usr/local/bin/docker/compose /usr/bin/docker-compose
+[ec2-user@ip-172-31-27-150 ~]$ free
+              total        used        free      shared  buff/cache   available
+Mem:         988688      132324      167712         464      688652      709272
+Swap:             0           0           0
+[ec2-user@ip-172-31-27-150 ~]$ sudo docker-compose up
+sudo: docker-compose: command not found
+[ec2-user@ip-172-31-27-150 ~]$ ls
+docker-compose.yaml
+[ec2-user@ip-172-31-27-150 ~]$ sudo docker-compose up -d
+sudo: docker-compose: command not found
+[ec2-user@ip-172-31-27-150 ~]$ sudo docker-compose up -d
+sudo: docker-compose: command not found
+[ec2-user@ip-172-31-27-150 ~]$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
