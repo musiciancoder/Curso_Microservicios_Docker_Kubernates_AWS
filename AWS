@@ -8,13 +8,40 @@ Entrar a putty a nuestro disco de nuestro computador local (root@Ip)
 Hacemos click en el checkbox de la instancia y hacemos click en "conectar". Luego vamos a "cliente ssh", copiamos donde dice "Conéctese a la instancia mediante su DNS público:" y lo pegamos en la consola Putty. Entonces aparecerá EC2, que significa que estamos conectados desde la instancia.
 Debemos en la instancia instalar docker, copiar el docker-compose desde el local y ejecutar (ver videos y logs de consola). Luego probar en postman con DNS de IPv4 publica (copiar de AWS) en vez de localhost en las peticiones.
 
-*ECS (administracion de microservicios por aws)
+*ECS (administracion de microservicios automatica por aws). Se recomienda ver pantallazos.
 El cluster de ECS es la red que administra nuestros microservicios. A su vez cada uno de estos microservicios ejecutan las tareas que contienen contenedores, manejando el tráfico de entrada asignado 
 a un puerto especifico y una IP publica que se le asigna en forma automatica. Mediante esa IP podemos acceder a los contenedores contenidos en tareas contenidos en servicios contenidos en el cluster.
+En ECS se crean microservicios con Fargate, es decir servless. Por eso no se crean instancias, sino que es sobredemanda.
 -Crear cluster
 -Crear definicion de tarea --> seleccionamos Fargate (que no es un servidor constante, sino q se activa solo cuando hay peticiones) -->pantalla siguiente seleccionar rol (abrir consola IAM y seguir pasos pantallazos si no tenemos rol creados)
 -Agregar container (ver pantallazos)
 -Crear el servicio, que es el que maneja el trafico a través de un puerto. Administra el balanceo de cargas (load balancer) y se encarga de la seguridad mediante un firewall, ambas caracteristicas son opcionales porque cobran mas money.
+-Hacer correr el servicio (que es el que contiene las tareas)
+-Revisar en postman con IP pública:8001 en vez de localhost:8001. La IP public se obtiene de la pantalla "detalles" en la tarea, sin embargo es muy volátil (cambia constantemente, por lo que se puede ocupar probando en postman, pero no es recomendable). 
+
+Alternativamente a lo anterior, el servicio con balanceo de carga en cambio nos proporciona un DNS que es constante y se ocupa en las peticiones en vez de la IP public en postman. Para ello debemos crear un load balancer (ver pantallazos). El load balancer lo podemos ver en el panel EC2
+El target group es la llave que enlaza el load balancer con el contenedor a balancear. Es requerido para poder crear el load balancer. (todo está en los pantallazos)
+Ademas, al crear el load balancer nos va a pedir un grupo de seguridad. Al crear el grupo de seguridad le damos el 8001 (o 8002) en el puerto de entrada, la salida es 'anywhere'.
+Una vez creados los load balancers, estos deben ser incluidos como variables de entorno en los contenedores que lo requieran (pantallazo).
+Finalmente se crean (o editan) los microservicios con los target group correspondientes.
+NOTA: Cuando dos containers estan en la misma tarea, se comunican mediante localhost. Ejemplo: 
+Variables de entorno mysql8
+Clave	Valor
+MYSQL_DATABASE	msvc_usuarios
+MYSQL_ROOT_PASSWORD	sasa
+
+Variables de entorno msvc-usuarios
+Clave	Valor
+CURSOS_URL	lb-cursos-1940459985.us-east-1.elb.amazonaws.com
+DB_DATABASE	msvc_usuarios
+DB_HOST	localhost:3306
+DB_PASSWORD	sasa
+DB_USERNAME	root
+PORT	8001
+
+
+
+
 
 
 

@@ -41,4 +41,5 @@ EXPOSE $PORT
 #ENTRYPOINT ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
 #el ENTRYPOINT no permite modificar la linea de domandos en modo interactivo. CMD sí lo permite, Puede ser remplazado en los comandos por docker run -p 8001:80
 #el modo interactivo permite trabajar dentro de docker como si fuera un terminal normal de linux
-CMD ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+#CMD ["java","-jar","msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+CMD sleep 20 && java -jar msvc-usuarios-0.1.1-SNAPSHOT.jar
