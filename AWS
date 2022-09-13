@@ -19,7 +19,7 @@ En ECS se crean microservicios con Fargate, es decir servless. Por eso no se cre
 -Hacer correr el servicio (que es el que contiene las tareas)
 -Revisar en postman con IP pública:8001 en vez de localhost:8001. La IP public se obtiene de la pantalla "detalles" en la tarea, sin embargo es muy volátil (cambia constantemente, por lo que se puede ocupar probando en postman, pero no es recomendable). 
 
-Alternativamente a lo anterior, el servicio con balanceo de carga en cambio nos proporciona un DNS que es constante y se ocupa en las peticiones en vez de la IP public en postman. Para ello debemos crear un load balancer (ver pantallazos). El load balancer lo podemos ver en el panel EC2
+Alternativamente a lo anterior, el servicio con balanceo de carga en cambio nos proporciona un DNS que es constante para nuestro servicio y se ocupa en las peticiones en vez de la IP public en postman. Para ello debemos crear un load balancer (ver pantallazos). El load balancer lo podemos ver en el panel EC2
 El target group es la llave que enlaza el load balancer con el contenedor a balancear. Es requerido para poder crear el load balancer. (todo está en los pantallazos)
 Ademas, al crear el load balancer nos va a pedir un grupo de seguridad. Al crear el grupo de seguridad le damos el 8001 (o 8002) en el puerto de entrada, la salida es 'anywhere'.
 Una vez creados los load balancers, estos deben ser incluidos como variables de entorno en los contenedores que lo requieran (pantallazo).
@@ -38,6 +38,12 @@ DB_HOST	localhost:3306
 DB_PASSWORD	sasa
 DB_USERNAME	root
 PORT	8001
+
+Volumenes
+Cuando se reinicia un servicio (ver pantallazos) los datos se pierden, por lo que al igual que en docker debemos crear volumenes.
+Para ello creamos una nueva revision de la tarea que contiene el container con el volumen a guardar y creamos el volumen, para lo cual debemos antes o durante el proceso crear un "sistema de archivos" (lo pide el volumen) que a su vez pedirá un grupo de seguridad aparte.
+Finalmente, para que se agarren los cambios debemos actualizar el servicio q contiene la tarea q acabamos de modificar y probar en postman. Notar que los servicios se actualizan y las tareas no se actualizan, sino se crean nuevas revisiones.
+Para buscar sistemas de archivos escribimos en el buscador EFS (elastic file system)
 
 
 
