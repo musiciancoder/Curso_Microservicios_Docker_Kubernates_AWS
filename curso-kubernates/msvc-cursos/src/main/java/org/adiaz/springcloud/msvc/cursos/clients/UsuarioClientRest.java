@@ -11,7 +11,10 @@ import java.util.List;
 
 //@FeignClient(name="msvc-usuarios",url="localhost:8001") //quiere decir q vamos a consumir msvc-usuarios acá. Esto es cuando probamos en local
 //@FeignClient(name="msvc-usuarios", url="msvc-usuarios:8001") //quiere decir q vamos a consumir msvc-usuarios acá. Esto es cuando probamos en docker desde un contenedor con un microservicio a otro contenedor con el otro microservicio
-@FeignClient(name="msvc-usuarios", url="${msvc.usuarios.url}") //msvc.usuarios.url lo obtiene del application properties
+//Antes de Kubernetes nos comunicamos por nombre del servicio y url
+//@FeignClient(name="msvc-usuarios", url="${msvc.usuarios.url}") //msvc.usuarios.url lo obtiene del application properties
+//Con Kubernetes nos comunicamos solamente con el nombre del servicio. Debe coincidir con el nombre del servicio de kubernetes. Con la libreria agregada de loadbalancer, con esta linea ya se va a tener automaticamente un loadbalancer cuando haya coneccion mediante kubernetes
+@FeignClient(name="msvc-usuarios")
 public interface UsuarioClientRest {
 
     //Nota: los métodos detalle, crear, etc. los saca todos del controlador msvc-usuarios UsuarioController
