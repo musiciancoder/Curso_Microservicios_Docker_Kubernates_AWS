@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msvc-usuarios
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: msvc-usuarios
+  template:
+    metadata:
+      labels:
+        app: msvc-usuarios
+    spec:
+      containers:
+      - image: aguzf/usuarios:latest
+        name: usuarios
+        ports:
+        - containerPort: 8001
+        env:
+#para visualizar el nombre del pod en el body en postman
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+#para visualizar el IP del pod en el body en postman
+          - name: MY_POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: msvc-usuarios
+                key: port
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: msvc-usuarios
+                key: db_host
+          - name: DB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: msvc-usuarios
+                key: database
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: msvc-usuarios
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: msvc-usuarios
+                key: password
+          - name: CURSOS_URL
+            valueFrom:
+              configMapKeyRef:
+                name: msvc-usuarios
+                key: curso_url

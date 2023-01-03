@@ -70,6 +70,9 @@ package org.adiaz.springcloud.msvc.usuarios.controllers;
 import org.adiaz.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.adiaz.springcloud.msvc.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -84,10 +87,28 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @GetMapping
-    public Map<String, List<Usuario>> listar() {
-        return Collections.singletonMap("usuarios",service.listar());
-    }
+    @Autowired
+    private ApplicationContext context;
+
+    @Autowired
+    private Environment env;
+
+    @GetMapping("/crash") //para que se pueda caer y probaren postman
+    public void crash(){
+        ((ConfigurableApplicationContext)context).close();
+        }
+
+
+
+        @GetMapping
+        public ResponseEntity <?>listar() {
+        Map<String,Object>body= new HashMap<>();
+        body.put("users",service.listar());
+        body.put("pod_info", env.getProperty("MY_POD_NAME")+": "+ env.getProperty("MY_POD_IP")); // para poder ver informacion de las variables de ambiente nombre del pod "MY_POD_NAME" e IP del pod "MY_POD_IP" seteadas en el deployment-usuarios.yaml.
+        body.put("texto",env.getProperty("config.texto")); //para q al configurar en el configMap de kubernetes las variables de application.properties muestre este texto en postman
+          //  return Collections.singletonMap("usuarios",service.listar()); //esta linea era antes de agregar las variables de ambiente de kubernetes
+            return ResponseEntity.ok(body);
+        }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> detalle(@PathVariable Long id) {
