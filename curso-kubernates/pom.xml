@@ -19,13 +19,14 @@
     <modules>
        <module>msvc-usuarios</module>
         <module>msvc-cursos</module>
+        <module>msvc-gateway</module>
     </modules>
 
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+<!--    <properties>-->
+<!--        <maven.compiler.source>8</maven.compiler.source>-->
+<!--        <maven.compiler.target>8</maven.compiler.target>-->
+<!--    </properties>-->
 
     <build>
         <plugins>

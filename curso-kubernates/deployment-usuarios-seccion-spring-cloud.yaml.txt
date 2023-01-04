@@ -58,3 +58,41 @@ spec:
               configMapKeyRef:
                 name: msvc-usuarios
                 key: curso_url
+				#Readiness
+		 readinessProbe:
+		       httpGet:
+			    path:/actuator/health/readiness
+			    port:8001
+				scheme:HTTP
+				#despues de 5 segundos que empiece a escanear
+			   initialSelaySeconds: 5
+			   periodSeconds: 20 que los sondeos los realice cada 20 segundos
+			   #cuando no responde despues del timeout, se toma como un problema en el trafico
+			   timeoutSeconds: 10
+			   #liveness
+		 livenessProbe:
+		   httpGet:
+		     path: /actuator/health/liveness
+			 port:8001
+			 scheme:HTTP
+			 #despues de 5 segundos que empiece a escanear
+			 initialSelaySeconds: 10
+			 periodSeconds: 30 que los sondeos los realice cada 20 segundos
+			 #cuando no responde despues del timeout, se toma como un problema en el trafico
+			 timeoutSeconds: 10
+	#asignar recursos a cada container
+	      resources: 
+		  #con requests garantizamos q va a tener siempre esa cantidad de recursos disponible (es como el minino)
+		    requests
+			#Mi = mega bytes de ram
+			  memory:"512Mi"
+			  #m = milicore; 1 core = 1000 milicore. Osea 400m= 0.4 core
+		      cpu: "400m"
+		  #maximo que puede llegar a tener
+			limits:
+			#si sobrepasamos memoria ram, redistribuye en otras instancias
+			  memory: "800Mi" 
+			# si sobrepasamos cpu va a andar mucho mas lento. Probablemente el kubelet va a hacer q se reinicie el contenedor
+			  cpu: "5000m"
+		  
+			
