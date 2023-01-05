@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: msvc-cursos
+          #lb es para que se aplique load balancer en esta ruta
+          uri: lb://msvc-cursos
+          predicates:
+            #los predicates son las rutas de nuestro microservicio (get, post put o delete)
+            - Path=/api/cursos/**
+          filters:
+            #2 prefijos, porque tenemos api y cursos en Path=/api/cursos/**
+            - StripPrefix=2
+        - id: msvc-usuarios
+          uri: lb://msvc-usuarios
+          predicates:
+                #los predicates son las rutas de nuestro microservicio (get, post put o delete)
+            - Path=/api/cursos/**
+          filters:
+                #2 prefijos, porque tenemos api y cursos en Path=/api/cursos/**
+            - StripPrefix=2
