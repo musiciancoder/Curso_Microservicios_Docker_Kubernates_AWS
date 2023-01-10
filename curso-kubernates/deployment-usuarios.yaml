@@ -1,99 +1,99 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: msvc-usuarios
-spec:
- # replicas: 3
-   replicas: 1
-  selector:
-    matchLabels:
-      app: msvc-usuarios
-  template:
-    metadata:
-      labels:
-        app: msvc-usuarios
-    spec:
-      containers:
-      - image: aguzf/usuarios:latest
-        name: usuarios
-        ports:
-        - containerPort: 8001
-        env:
-#para visualizar el nombre del pod en el body en postman
-          - name: MY_POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-#para visualizar el IP del pod en el body en postman
-          - name: MY_POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
-          - name: PORT
-            valueFrom:
-              configMapKeyRef:
-                name: msvc-usuarios
-                key: port
-          - name: DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: msvc-usuarios
-                key: db_host
-          - name: DB_DATABASE
-            valueFrom:
-              configMapKeyRef:
-                name: msvc-usuarios
-                key: database
-          - name: DB_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: msvc-usuarios
-                key: username
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: msvc-usuarios
-                key: password
-          - name: CURSOS_URL
-            valueFrom:
-              configMapKeyRef:
-                name: msvc-usuarios
-                key: curso_url
-				#Readiness
-		 readinessProbe:
-		       httpGet:
-			    path:/actuator/health/readiness
-			    port:8001
-				scheme:HTTP
-				#despues de 5 segundos que empiece a escanear
-			   initialSelaySeconds: 5
-			   periodSeconds: 20 que los sondeos los realice cada 20 segundos
-			   #cuando no responde despues del timeout, se toma como un problema en el trafico
-			   timeoutSeconds: 10
-			   #liveness
-		 livenessProbe:
-		   httpGet:
-		     path: /actuator/health/liveness
-			 port:8001
-			 scheme:HTTP
-			 #despues de 5 segundos que empiece a escanear
-			 initialSelaySeconds: 10
-			 periodSeconds: 30 que los sondeos los realice cada 20 segundos
-			 #cuando no responde despues del timeout, se toma como un problema en el trafico
-			 timeoutSeconds: 10
-	#asignar recursos a cada container
-	      resources: 
-		  #con requests garantizamos q va a tener siempre esa cantidad de recursos disponible (es como el minino)
-		    requests
-			#Mi = mega bytes de ram
-			  memory:"512Mi"
-			  #m = milicore; 1 core = 1000 milicore. Osea 400m= 0.4 core
-		      cpu: "400m"
-		  #maximo que puede llegar a tener
-			limits:
-			#si sobrepasamos memoria ram, redistribuye en otras instancias
-			  memory: "800Mi" 
-			# si sobrepasamos cpu va a andar mucho mas lento. Probablemente el kubelet va a hacer q se reinicie el contenedor
-			  cpu: "5000m"
-		  
-			
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: msvc-usuarios
+#spec:
+# # replicas: 3
+#   replicas: 1
+#  selector:
+#    matchLabels:
+#      app: msvc-usuarios
+#  template:
+#    metadata:
+#      labels:
+#        app: msvc-usuarios
+#    spec:
+#      containers:
+#      - image: aguzf/usuarios:latest
+#        name: usuarios
+#        ports:
+#        - containerPort: 8001
+#        env:
+##para visualizar el nombre del pod en el body en postman
+#          - name: MY_POD_NAME
+#            valueFrom:
+#              fieldRef:
+#                fieldPath: metadata.name
+##para visualizar el IP del pod en el body en postman
+#          - name: MY_POD_IP
+#            valueFrom:
+#              fieldRef:
+#                fieldPath: status.podIP
+#          - name: PORT
+#            valueFrom:
+#              configMapKeyRef:
+#                name: msvc-usuarios
+#                key: port
+#          - name: DB_HOST
+#            valueFrom:
+#              configMapKeyRef:
+#                name: msvc-usuarios
+#                key: db_host
+#          - name: DB_DATABASE
+#            valueFrom:
+#              configMapKeyRef:
+#                name: msvc-usuarios
+#                key: database
+#          - name: DB_USERNAME
+#            valueFrom:
+#              secretKeyRef:
+#                name: msvc-usuarios
+#                key: username
+#          - name: DB_PASSWORD
+#            valueFrom:
+#              secretKeyRef:
+#                name: msvc-usuarios
+#                key: password
+#          - name: CURSOS_URL
+#            valueFrom:
+#              configMapKeyRef:
+#                name: msvc-usuarios
+#                key: curso_url
+#				#Readiness
+#		 #readinessProbe:
+#		       #httpGet:
+#			 #   path:/actuator/health/readiness
+#			  #  port:8001
+#				#scheme:HTTP
+#				#despues de 5 segundos que empiece a escanear
+#			 #  initialSelaySeconds: 5
+#			 #  periodSeconds: 20 que los sondeos los realice cada 20 segundos
+#			   #cuando no responde despues del timeout, se toma como un problema en el trafico
+#			  # timeutSeconds: 10
+#			   #liveness
+#		 #livenessProbe:
+#		  # httpGet:
+#		     path: /actuator/health/liveness
+#			 #port:8001
+#			 #scheme:HTTP
+#			 #despues de 5 segundos que empiece a escanear
+#			 #initialSelaySeconds: 10
+#			 #periodSeconds: 30 que los sondeos los realice cada 20 segundos
+#			 #cuando no responde despues del timeout, se toma como un problema en el trafico
+#			 #timeoutSeconds: 10
+#	#asignar recursos a cada container
+#	#      resources:
+#		  #con requests garantizamos q va a tener siempre esa cantidad de recursos disponible (es como el minino)
+#		#    requests
+#			#Mi = mega bytes de ram
+#		#	  memory:"512Mi"
+#			  #m = milicore; 1 core = 1000 milicore. Osea 400m= 0.4 core
+#		 #     cpu: "400m"
+#		  #maximo que puede llegar a tener
+#			limits:
+#			#si sobrepasamos memoria ram, redistribuye en otras instancias
+#			  memory: "800Mi"
+#			# si sobrepasamos cpu va a andar mucho mas lento. Probablemente el kubelet va a hacer q se reinicie el contenedor
+#			  cpu: "5000m"
+#
+#
