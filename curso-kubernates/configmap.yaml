@@ -1,0 +1,27 @@
+#Config map es una configuracion personalizada en donde todos los deployments (en este caso nuestros deployments para usuarios y cursos) estan en un mismo archivo.
+#Los puertos host y database los saca de application.properties
+#Ojo, que las variables q le puso comillas pueden ir sin comilla tambien
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msvc-usuarios
+data:
+  port: "8001"
+  db_host: "mysql8:3306"
+  database: msvc_usuarios
+#  username: root
+#  password: sasa
+  curso_url: "msvc-cursos:8002"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msvc-cursos
+data:
+  port: "8002"
+  db_host: "postgres14:5432"
+  database: msvc_cursos
+#  username: postgres
+#  password: sasa
+  usuario_url: "msvc-usuarios:8001"
