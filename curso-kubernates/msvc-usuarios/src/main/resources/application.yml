@@ -1,0 +1,19 @@
+#aqui configuramos nuestro servicio msvc-usuarios como cliente para msvc-auth, se podría haber hecho en en application.properties igual
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          #msvc-usuarios-client es el nombre q esta en la clase SecurityConfig. La siguiente configuracion debe ir acorde a lo q pusimos en esa clase.
+          msvc-usuarios-client:
+            provider: spring
+            client-id: usuarios-client
+            client-secret: 12345
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8001/authorized"
+            scope: read
+            client-name: msvc-usuarios-client
+        provider:
+          spring:
+            #esto es para minikube, o sea en local
+            issuer-uri: http://127.0.0.1:9000

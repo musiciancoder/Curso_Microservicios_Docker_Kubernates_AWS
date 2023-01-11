@@ -15,6 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+<!--		debe trabajar con la misma version de spring-cloud.version del parent-->
 		<spring-cloud.version>2021.0.1</spring-cloud.version>
 
 	</properties>
@@ -24,13 +25,23 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
+<!--			para q msvc-auth se convierta en un servidor de autorizacion para usuarios, login-->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-authorization-server</artifactId>
+		    <version>0.3.1</version>
+		</dependency>
+
+		<!--Agregamos las dos librerias siguientes para poder conectarnos con los otros microservicios, ya que necesitamos registrar y loguear usuarios q estan en los otros msvc-->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+<!--		para q el cliente se autoregistre al ecosistema de microservicios con springcloud-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-kubernetes-client</artifactId>
@@ -54,6 +65,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
