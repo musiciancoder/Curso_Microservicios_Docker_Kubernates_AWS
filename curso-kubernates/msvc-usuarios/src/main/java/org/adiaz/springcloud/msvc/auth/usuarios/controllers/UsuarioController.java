@@ -169,6 +169,13 @@ public class UsuarioController {
         return ResponseEntity.ok(service.listarPorIds(ids));
     }
 
+
+    //este metodo lo agregó Guzman en la parte "configurando OAUTH2 client securityconfig" y es la ruta que se mencionó en application.yml para el login
+    @GetMapping("/authorized")
+    public Map<String,Object>authorized(@RequestParam(name = "code") String code){
+        return Collections.singletonMap("code",code); //retorna el codigo de autorizacion en el json de la respuesta
+    }
+
     //metodo utilitario que podría ir en paquete utils
     private ResponseEntity<Map<String,String>> validar (BindingResult result){
         Map<String,String>errores = new HashMap<>();

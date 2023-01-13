@@ -119,6 +119,7 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                // el servidor de autorizacion redirige a esta ruta para login
                 //.redirectUri("http://127.0.0.1:8001/login/oauth2/code/msvc-usuarios-client") //acá hay q utilizar la ip de nuestra maquina, q siempre es 127.0.0.1., ya q primero va a probar en local con minikube. Despues tenemos q cambiar esta ip por una variable de ambiente env q contenga la ip y puerto (loadbalancers) del servicio de usuarios de kubernetes. 8001 es el puerto de msvc-usuarios.
                 //				.redirectUri("http://127.0.0.1:8001/authorized") //en el controlador va implementado un metodo para "authorized"
 
