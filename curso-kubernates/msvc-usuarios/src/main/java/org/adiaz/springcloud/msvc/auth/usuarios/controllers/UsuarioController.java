@@ -173,7 +173,7 @@ public class UsuarioController {
     //este metodo lo agregó Guzman en la parte "configurando OAUTH2 client securityconfig" y es la ruta que se mencionó en application.yml para el login
     @GetMapping("/authorized")
     public Map<String,Object>authorized(@RequestParam(name = "code") String code){
-        return Collections.singletonMap("code",code); //retorna el codigo de autorizacion en el json de la respuesta
+        return Collections.singletonMap("code",code); //retorna el codigo de autorizacion en el json de la respuesta. Por supuesto esto es cuando todavía no tenemos el token ya q estamos queriendo obtener el token con este codigo de  autorizacion
     }
 
     //metodo utilitario que podría ir en paquete utils
