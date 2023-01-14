@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .antMatchers("/authorized").permitAll() //recordar q los antmatchers es para dar permisos a las rutas segun autorities, por lo q los agregó en la parte correspondiente al servidor de recursos. En esta linea estamos dando permiso a todos (administradores y usuarios) para q puedan acceder al metodo authorized de UsuarioController y obtener el codigo que está en ese metodo siempre y cuando el username y el password q ingresamos en la pagina de login sean los correctos.
                 //en este caso tanto administradores como usuarios tendrán acceso a lo siguiente:
                 .antMatchers(HttpMethod.GET,"/", "/{id]").hasAnyAuthority("SCOPE_read","SCOPE_write") //"/" es para todas,  "/{id]" es para detalle de uno. Con comas se pueden ir agregando varios endpoints, como en este caso
-                .antMatchers(HttpMethod.POST,"/").hasAnyAuthority("SCOPE_write")
+                .antMatchers(HttpMethod.POST,"/").hasAnyAuthority("SCOPE_write") //el SCOPE_write es como el admin, el SCOPE_read es como el user
                 .antMatchers(HttpMethod.PUT,"/{id]").hasAnyAuthority("SCOPE_write")
                 .antMatchers(HttpMethod.DELETE,"/{id]").hasAnyAuthority("SCOPE_write")
                 .anyRequest().authenticated()
