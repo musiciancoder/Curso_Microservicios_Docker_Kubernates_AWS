@@ -6,6 +6,9 @@ kind: ConfigMap
 metadata:
   name: msvc-usuarios
 data:
+  #estas dos lineas las agregó en la seccion "Configurando varibles de entorno en Msvc Usuarios"
+  lb_auth_issuer_uri: http://127.0.0.1:9000
+  lb_usuarios_uri: http://127.0.0.1:8001 #ipminikube:node port de minikube msvc-usuarios
   port: "8001"
   db_host: "mysql8:3306"
   database: msvc_usuarios

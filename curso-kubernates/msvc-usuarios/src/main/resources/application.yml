@@ -6,7 +6,8 @@ spring:
       resourceserver:
         #configuracion para validar el token
         jwt:
-          issuer-uri: http://127.0.0.1:9000
+          #http://127.0.0.1:9000 es el valor por defecto servidor minikube:puerto. la variable de ambiente LB_AUTH_ISSUER_URI se configura en el configmap y/o en el deployment de msvc usuario
+          issuer-uri: ${LB_AUTH_ISSUER_URI:http://127.0.0.1:9000} #issuer=distribuidor; issuer-uri distribuidor de identificadores de recursos uniformes. Una diferencia entre URL y URI es que el primero solo funciona como un localizador, indicando donde encontrar el elemento. Mientras que la URI permite tanto identificar como localizar cada recurso ya que dentro de esta se encuentra a su vez la URL, por lo que puede cumplir ambas funciones.
       client:
         registration:
           #msvc-usuarios-client es el nombre q esta en la clase SecurityConfig. La siguiente configuracion debe ir acorde a lo q pusimos en esa clase.
@@ -15,11 +16,10 @@ spring:
             client-id: usuarios-client
             client-secret: 12345
             authorization-grant-type: authorization_code
-            #el servidor de autorizacion redirige a esta ruta para que haga login login
-            redirect-uri: "http://127.0.0.1:8001/authorized"
+            #el servidor de autorizacion redirige a esta ruta para que haga login
+            redirect-uri: ${LB_AUTH_ISSUER_URI:http://127.0.0.1:9000}
             scope: read
             client-name: msvc-usuarios-client
         provider:
           spring:
-            #esto es para minikube, o sea en local
-            issuer-uri: http://127.0.0.1:9000
+            issuer-uri: ${LB_AUTH_ISSUER_URI:http://127.0.0.1:9000}

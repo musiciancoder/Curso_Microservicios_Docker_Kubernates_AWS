@@ -46,7 +46,7 @@ https://docs.spring.io/spring-authorization-server/docs/current/reference/html/g
 public class SecurityConfig {
 
     @Autowired
-    private Environment env;
+    private Environment env; //para configurar variables de entorno
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -122,7 +122,7 @@ public class SecurityConfig {
                 // el servidor de autorizacion redirige a esta ruta para login
                 //.redirectUri("http://127.0.0.1:8001/login/oauth2/code/msvc-usuarios-client") //acá hay q utilizar la ip de nuestra maquina, q siempre es 127.0.0.1., ya q primero va a probar en local con minikube. Despues tenemos q cambiar esta ip por una variable de ambiente env q contenga la ip y puerto (loadbalancers) del servicio de usuarios de kubernetes. 8001 es el puerto de msvc-usuarios.
                 //				.redirectUri("http://127.0.0.1:8001/authorized") //en el controlador va implementado un metodo para "authorized"
-
+//aca cambio las lineas de arriba por las variables de ambiente establecidas en archivo application.yml
                 .redirectUri(env.getProperty("LB_USUARIOS_URI") + "/login/oauth2/code/msvc-usuarios-client")
                 .redirectUri(env.getProperty("LB_USUARIOS_URI") + "/authorized")
                 .scope(OidcScopes.OPENID)

@@ -18,7 +18,19 @@
 #        name: usuarios
 #        ports:
 #        - containerPort: 8001
+#Agregó las siguientes dos variables de entorno en seccion Configurando varibles de entorno en Msvc Usuarios
 #        env:
+#          -name: LB_AUTH_ISSUER_URI
+            valueFrom:
+              configMapKeyRef:
+                name: msvc-usuarios
+                key: lb_auth_issuer_uri # el mismo q esta en application.yml
+#            -name: LB_AUTH_ISSUER_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: msvc-usuarios
+                  key: lb_usuarios_uri # el mismo q esta en application.yml
+
 ##para visualizar el nombre del pod en el body en postman
 #          - name: MY_POD_NAME
 #            valueFrom:
