@@ -5,12 +5,19 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 //Esta es la clase de configuracion de Spring Security para el cliente. En este caso msvc-usuarios es un cliente en el ambito de spring security
 @EnableWebSecurity
 public class SecurityConfig {
+
+    //bean para encriptar
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     //el servidor de recursos se comunicará tras bambalinas con el servidor de autorizacion.
     @Bean

@@ -68,6 +68,7 @@ public class UsuarioController {
 package org.adiaz.springcloud.msvc.auth.usuarios.controllers;
 
 import org.adiaz.springcloud.msvc.auth.usuarios.models.entity.Usuario;
+import org.adiaz.springcloud.msvc.auth.usuarios.repositories.UsuarioRepository;
 import org.adiaz.springcloud.msvc.auth.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -75,6 +76,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,6 +87,9 @@ import java.util.*;
 public class UsuarioController {
 
     @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
     private UsuarioService service;
 
     @Autowired
@@ -92,6 +97,8 @@ public class UsuarioController {
 
     @Autowired
     private Environment env;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping("/crash") //para que se pueda caer y probaren postman
     public void crash(){
@@ -129,6 +136,7 @@ public class UsuarioController {
                     .body(Collections
                             .singletonMap("mensaje","Ya existe un usuario con ese email!"));
         }
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword())); //encriptamos la contraseña y la devolvemos de nuevoy
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
     }
 
@@ -147,7 +155,9 @@ public class UsuarioController {
             Usuario usuarioDb = o.get();
             usuarioDb.setNombre(usuario.getNombre());
             usuarioDb.setEmail(usuario.getEmail());
-            usuarioDb.setPassword(usuario.getPassword());
+          //  usuarioDb.setPassword(usuario.getPassword()); //linea antes de encriptar acá abajo
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword())); //encriptamos la contraseña y la devolvemos de nuevoy
+
             return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuarioDb));
         }
         return ResponseEntity.notFound().build();
