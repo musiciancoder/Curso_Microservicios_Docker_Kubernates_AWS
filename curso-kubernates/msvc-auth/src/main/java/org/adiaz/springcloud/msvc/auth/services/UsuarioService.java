@@ -29,7 +29,8 @@ public class UsuarioService implements UserDetailsService {
 
         try {
          Usuario usuario =   client.get()
-                    .uri("http://msvc-usuarios", uri -> uri.queryParam("email", email).build())
+                    .uri("http://msvc-usuarios:8001/login", //nombre del microservicio del cliente:puerto del cliente (el del servidor de autorizacion es 9000)
+                            uri -> uri.queryParam("email", email).build())
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .bodyToMono(Usuario.class)
