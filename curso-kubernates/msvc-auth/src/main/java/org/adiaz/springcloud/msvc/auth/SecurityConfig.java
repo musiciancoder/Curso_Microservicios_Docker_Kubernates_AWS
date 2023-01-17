@@ -52,7 +52,8 @@ public class SecurityConfig {
     private UserDetailsService userDetailsService;
 
     @Bean
-    public static BCryptPasswordEncoder passwordEncoder() {
+    public static BCryptPasswordEncoder passwordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
 
@@ -90,12 +91,13 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //este metodo reemplaza metodo q esta comentado mas abajo
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-//    esto es un usuario de ejemplo. Al hardcodearlo lo crea en memoria, no en base de datos. Esto debemos cambiarlo al implementarlo para q agarre los usuarios ni siquiera de la bbdd sino a msvc-usuarios
+//    esto es un usuario de ejemplo. Al hardcodearlo lo crea en memoria, no en base de datos. Esto debemos cambiarlo al implementarlo para q agarre los usuarios ni siquiera de la bbdd sino a msvc-usuarios. Lo comentó en la sección "Configurando BCrypt Password Encoder en el servidor de autorización"
 //    @Bean
 //    public UserDetailsService userDetailsService() {
 //        UserDetails userDetails = User.withDefaultPasswordEncoder()
@@ -111,7 +113,7 @@ public class SecurityConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-               // .clientId("messaging-client")
+               // .clientId("messaging-client") //esto significa q no esta encriptado
                 .clientId("usuarios-client") //el nombre de usuario del cliente frontend es "usuarios-client", el nombre es msvc-usuarios-client. Deben ir configurados con los mismos nombre y nombre de usuario en el application.yaml del cliente (en nuestro caso msvc-usuarios) para q se puedan comunicar
                 //.clientSecret("{noop}12345") //esto significa q no esta encriptado
                 .clientSecret(passwordEncoder().encode("12345"))
