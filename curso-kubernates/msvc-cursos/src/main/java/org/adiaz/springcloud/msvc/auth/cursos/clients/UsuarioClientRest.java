@@ -25,5 +25,6 @@ public interface UsuarioClientRest {
     Usuario crear (@RequestBody Usuario usuario);
 
     @GetMapping("/usuarios-por-curso")
-    List<Usuario> obtenerAlumnosPorCurso(@RequestParam Iterable<Long> ids);
+    List<Usuario> obtenerAlumnosPorCurso(@RequestParam Iterable<Long> ids
+    , @RequestHeader(value = "Authorization", required = true) String token); // esta linea la agregó en seccion " Propagar token JWT en msvc cursos". Es para pasarle el token como Autorizacion en los headers en postman.
 }

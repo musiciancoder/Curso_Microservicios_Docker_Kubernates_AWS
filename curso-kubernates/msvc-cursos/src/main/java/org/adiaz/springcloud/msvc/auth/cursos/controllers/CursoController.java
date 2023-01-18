@@ -26,9 +26,10 @@ public class CursoController {
     }
 
     @GetMapping("/{id}") //id del curso
-    public ResponseEntity<?> detalle(@PathVariable Long id) {
+    public ResponseEntity<?> detalle(@PathVariable Long id,  @RequestHeader(value = "Authorization", required = true) String token) {
       //  Optional<Curso> o = service.porId(id); //con esto obtiene todos los usuarios, pero antes de que implementaramos porIdConUsuarios en el servicio
-       Optional<Curso> o = service.porIdConUsuarios(id);
+       Optional<Curso> o = service.porIdConUsuarios(id
+       ,token); // esta linea la agregó en seccion " Propagar token JWT en msvc cursos"
         if (o.isPresent()) {
             return ResponseEntity.ok(o.get());
         }

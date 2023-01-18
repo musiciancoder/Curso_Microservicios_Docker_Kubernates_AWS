@@ -35,7 +35,8 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
-    public Optional<Curso> porIdConUsuarios(Long id) { //id es id del curso
+    public Optional<Curso> porIdConUsuarios(Long id//id es id del curso
+                                  ,String token          ) { // esta linea la agregó en seccion " Propagar token JWT en msvc cursos"
         Optional<Curso> o = repository.findById(id);
         if (o.isPresent()) {
             Curso curso = o.get();
@@ -44,7 +45,8 @@ public class CursoServiceImpl implements CursoService {
                         .stream()
                         .map(cu -> cu.getUsuarioId()) //pasa de cursoUsuario a idUsuario
                         .collect(Collectors.toList());// obtenemos una lista de usuarioId del curso a partir del id del curso
-                List<Usuario> usuarios = client.obtenerAlumnosPorCurso(ids); //obtiene finalmente los usuarios completos a partir de sus ids
+                List<Usuario> usuarios = client.obtenerAlumnosPorCurso(ids //obtiene finalmente los usuarios completos a partir de sus ids
+               ,token);// esta linea la agregó en seccion " Propagar token JWT en msvc cursos"
                 curso.setUsuarios(usuarios);
             }
             return Optional.of(curso);
