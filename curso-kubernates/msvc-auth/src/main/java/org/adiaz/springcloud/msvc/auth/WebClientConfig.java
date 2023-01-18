@@ -10,7 +10,7 @@ public class WebClientConfig {
 
     @LoadBalanced //A.Guzman: "con esto configuramos balanceo de carga entre servidor de autorizacion y clientes usando webclient en vez de feign, similar a como balanceamos la carga entre msvc-usuarios y msvc-cursos usando feign "
     @Bean
-    WebClient webClient() {
-        return WebClient.builder().build();
+    WebClient.Builder webClient() {
+        return WebClient.builder();
     }
 }

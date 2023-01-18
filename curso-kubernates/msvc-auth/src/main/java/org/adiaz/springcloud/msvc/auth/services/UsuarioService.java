@@ -19,7 +19,7 @@ import java.util.Collections;
 public class UsuarioService implements UserDetailsService {
 
     @Autowired
-    private WebClient client;
+    private WebClient.Builder client;
 
     private Logger log = LoggerFactory.getLogger(UsuarioService.class);
 
@@ -28,8 +28,11 @@ public class UsuarioService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         try {
-         Usuario usuario =   client.get()
-                    .uri("http://msvc-usuarios:8001/login", //nombre del microservicio del cliente:puerto del cliente (el del servidor de autorizacion es 9000)
+         Usuario usuario =   client
+                 .build()
+                 .get()
+                   // .uri("http://msvc-usuarios:8001/login", //nombre del microservicio del cliente:puerto del cliente (el del servidor de autorizacion es 9000). En seccion WebClient con SpringCloud LoadBalancer lo corrigió y dijo q no era necesario el puerto.
+                 .uri("http://msvc-usuarios/login", //el cliente se está registrando en el discovery client
                             uri -> uri.queryParam("email", email).build())
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
