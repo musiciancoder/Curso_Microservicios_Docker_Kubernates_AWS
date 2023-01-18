@@ -86,7 +86,9 @@ public class SecurityConfig {
                 )
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
-                .formLogin(Customizer.withDefaults()).csrf().disable();
+                .formLogin(Customizer.withDefaults())
+                .csrf().disable();  //lo agregó en seccion "Login OAuth2 Cliente Http Postman". Esta seguridad es para formularios, pero para api rest no es necesario
+
 
         return http.build();
     }
@@ -130,7 +132,11 @@ public class SecurityConfig {
                 .scope(OidcScopes.OPENID)
                 .scope("read")
                 .scope("write")
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .clientSettings(ClientSettings
+                        .builder()
+                     //   .requireAuthorizationConsent(true) //esto lo comentó en seccion "Login OAuth2 Cliente Http Postman" y le puso false
+                        .requireAuthorizationConsent(false)
+                        .build())//esto lo coment
                 .build();
 
         return new InMemoryRegisteredClientRepository(registeredClient);

@@ -40,7 +40,10 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //pk la autenticacion es con token, no con sesiones http. si fuera mvc sin apirest ahi seria always en vez de stateless
                 .and()
                 .oauth2Login(oauth2Login -> oauth2Login.loginPage("/oauth2/authorization/msvc-usuarios-client")) //esta es la pagina de login del cliente. Notar q msvc-usuarios-client es el client name dado en application.yml
-                .oauth2Client(withDefaults()) //cuando importamos un metodo estatico se hace con la palabra reservada static
+
+                .oauth2Client(withDefaults())//cuando importamos un metodo estatico se hace con la palabra reservada static
+                        .csrf().disable() //lo agregó en seccion "Login OAuth2 Cliente Http Postman". Esta seguridad es para formularios, pero para api rest no es necesario
+
 
                 //Esta parte corresponde al servidor de recursos de nuevo:
                 .oauth2ResourceServer().jwt(); //aca finalmente enviamos el jwt, ya q cada vez que solicitemos algun recurso que esté protegido debemos pasarle el token segun esta escrito en el application.yml.
